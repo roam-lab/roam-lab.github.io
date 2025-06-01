@@ -65,6 +65,7 @@ Research Interests
 * Control systems, embedded robotics
 * Medical imaging and diagnostic AI
 
+<!--
 Skills
 ======
 * Programming: C++, Python, MATLAB
@@ -73,6 +74,7 @@ Skills
 * Simulation: Gazebo, RViz
 * CAD & PCB design: OnShape, EasyEDA
 * Embedded Systems: STM32, Raspberry Pi
+-->
 
 Selected Publications
 ======
@@ -80,11 +82,13 @@ Selected Publications
   {% include archive-single-cv.html %}
 {% endfor %}</ul>
 
+<!--
 Talks
 ======
 <ul>{% for post in site.talks reversed %}
   {% include archive-single-talk-cv.html %}
 {% endfor %}</ul>
+-->
 
 Teaching
 ======

@@ -19,7 +19,7 @@
 
 
 
-<title>Ahmet Sadik Duru - RObust Autonomous Mobility Lab</title>
+<title>Ahmet Sadik Duru - ROAM-Lab</title>
 
 
 
@@ -28,7 +28,7 @@
 
 
 <meta property="og:locale" content="en-US">
-<meta property="og:site_name" content="RObust Autonomous Mobility Lab">
+<meta property="og:site_name" content="ROAM-Lab">
 <meta property="og:title" content="Ahmet Sadik Duru">
 
 
@@ -37,7 +37,7 @@
 
 
 
-  <meta property="og:description" name="description" content="Ahmet is a PhD student in the ROAM lab, contributing to projects on localization and navigation for MAVs in challenging environments.">
+  <meta property="og:description" name="description" content="">
 
 
 
@@ -85,7 +85,7 @@
 <!-- end SEO -->
 
 
-<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="RObust Autonomous Mobility Lab Feed">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="ROAM-Lab Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -130,6 +130,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css">
 
+
+
   </head>
 
   <body>
@@ -145,7 +147,7 @@
       <nav id="site-nav" class="greedy-nav">
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">RObust Autonomous Mobility Lab</a></li>
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">ROAM-Lab</a></li>
           
             
             <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
@@ -172,147 +174,158 @@
   </div>
 </div>
 
-    <div class="team-profile-container" style="max-width: 960px; margin: auto; padding: 2rem 1rem;">
-  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+    <style>
+  .profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .profile-main {
+    flex: 1 1 60%;
+  }
+
+  .profile-sidebar {
+    flex: 1 1 300px;
+    text-align: center;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .profile-sidebar img {
+    width: 100%;
+    max-width: 240px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .profile-sidebar h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+
+  .profile-sidebar p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
+
+  .social-icons a {
+    margin: 0 0.3rem;
+    color: #444;
+    font-size: 1.4rem;
+  }
+
+  .social-icons a:hover {
+    color: #0056b3;
+  }
+
+  .profile-main h1 {
+    margin-bottom: 1.2rem;
+  }
+
+  .profile-main p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .profile-section {
+    margin-top: 2.5rem;
+  }
+
+  .profile-section h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-section ul {
+    padding-left: 1.2rem;
+  }
+</style>
+
+<div class="profile-container">
+  <!-- Main Text Content -->
+  <div class="profile-main">
+    <h1>Ahmet Sadik Duru</h1>
+
     
-    <!-- Profile Picture -->
-    <div style="flex: 0 0 160px;">
-      
-      <img src="/images/team/duru.png" 
-            alt="Ahmet Sadik Duru" 
-            style="width: 100%; border-radius: 8px;">
-    </div>
-
-    <!-- Basic Info -->
-    <div style="flex: 1;">
-      <h1 style="margin-bottom: 0.5rem;">Ahmet Sadik Duru</h1>
-
-      <p style="margin: 0.2rem 0;"><strong>Role:</strong>
-        PhD Student
-          
-      </p>
-
-      
-        <p style="margin: 0.2rem 0;"><strong>Email:</strong> <a href="mailto:jane@university.edu">jane@university.edu</a></p>
-      
-
-      
-        <p style="margin: 0.2rem 0;"><strong>Website:</strong> <a href="https://janedoe.dev" target="_blank">https://janedoe.dev</a></p>
-      
-
-      
-
-      <!-- Social Links -->
-      <div style="margin-top: 0.5rem;">
-        
-        
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <hr style="margin: 2rem 0;">
-
-  <!-- Biography -->
-  
-    <div>
-      <h3>Biography</h3>
       <p>Ahmet Sadık Duru is a PhD student working on visual-inertial SLAM for aerial robots. His research interests include sensor fusion, Kalman filters, and autonomous navigation in GPS-denied environments.
 </p>
-    </div>
-  
-
-  <!-- Research Topics -->
-  
-    <div>
-      <h3>Research Topics</h3>
-      <ul>
-        
-          <li>Visual-Inertial Odometry</li>
-        
-          <li>Sensor Fusion</li>
-        
-          <li>Kalman Filtering</li>
-        
-          <li>Aerial Robotics</li>
-        
-          <li>Autonomous Navigation</li>
-        
-      </ul>
-    </div>
-  
-
-  <!-- Education -->
-  
-    <div>
-      <h3>Education</h3>
-      <ul>
-        
-        
-          <li><strong>MSc:</strong> Ankara Yıldırım Beyazıt University, Mechatronics Engineering</li>
-        
-        
-          <li><strong>Undergrad:</strong> Middle East Technical University, Mechanical Engineering</li>
-        
-      </ul>
-    </div>
-  
-
-  <!-- Associated Projects -->
-  
-  
-    <div>
-      <h3>Projects</h3>
-      <ul>
-        
-          <li><a href="/projects/omnieye/">OmniEye: 3D Mapping Sensor Module</a></li>
-        
-      </ul>
-    </div>
-  
-
-  <!-- Markdown Content -->
-  
-    <div>
-      <h3>More</h3>
-      <p>Ahmet is a PhD student in the ROAM lab, contributing to projects on localization and navigation for MAVs in challenging environments.</p>
-
-    </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-  <div class="publication-nav" style="display: flex; margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1.5rem;">
     
-    <div style="flex: 1; text-align: left;">
-      
-        <span class="btn btn--inverse btn--disabled">Previous</span>
-      
-    </div>
 
-    <div style="flex: 1; text-align: right;">
-      
-        
-        <a class="btn btn--inverse" href="/team/ozaslan/">
-          Next <i class="fas fa-arrow-right" style="margin-left: 0.25rem;"></i>
-        </a>
-      
-    </div>
+    
+      <div class="profile-section">
+        <h3>Research Interests</h3>
+        <ul>
+          
+            <li>Visual-Inertial Odometry</li>
+          
+            <li>Sensor Fusion</li>
+          
+            <li>Kalman Filtering</li>
+          
+            <li>Aerial Robotics</li>
+          
+            <li>Autonomous Navigation</li>
+          
+        </ul>
+      </div>
+    
 
+    
+      <div class="profile-section">
+        <h3>Education</h3>
+        <ul>
+          
+          <li><strong>MSc:</strong> Ankara Yıldırım Beyazıt University, Mechatronics Engineering</li>
+          <li><strong>Undergrad:</strong> Middle East Technical University, Mechanical Engineering</li>
+        </ul>
+      </div>
+    
+
+    
+    
+      <div class="profile-section">
+        <h3>Projects</h3>
+        <ul>
+          
+            <li><a href="/projects/omnieye/">OmniEye: 3D Mapping Sensor Module</a></li>
+          
+        </ul>
+      </div>
+    
   </div>
 
+  <!-- Sidebar with Image and Info -->
+  <div class="profile-sidebar">
+    
+    <img src="/images/team/duru.png"
+         alt="Ahmet Sadik Duru"
+         onerror="this.onerror=null;this.src='/images/team/default.png';">
 
+    <h3>Ahmet Sadik Duru</h3>
 
+    
+      <p><i class="fas fa-envelope"></i> <a href="mailto:jane@university.edu">jane@university.edu</a></p>
+    
+    
+    
+    
+    
+
+    <div class="social-icons">
+      <a href="mailto:jane@university.edu"><i class="fas fa-envelope"></i></a>
+      
+      
+      
+    </div>
+  </div>
 </div>
 
 
@@ -343,7 +356,7 @@
 
 <div class="page__footer-copyright">
   &copy; 2025 Tolga Özaslan, PhD, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
-  Site last updated 2025-05-31
+  Site last updated 2025-06-01
 </div>
 
       </footer>

@@ -19,7 +19,7 @@
 
 
 
-<title>Team - RObust Autonomous Mobility Lab</title>
+<title>Team - ROAM-Lab</title>
 
 
 
@@ -28,7 +28,7 @@
 
 
 <meta property="og:locale" content="en-US">
-<meta property="og:site_name" content="RObust Autonomous Mobility Lab">
+<meta property="og:site_name" content="ROAM-Lab">
 <meta property="og:title" content="Team">
 
 
@@ -83,7 +83,7 @@
 <!-- end SEO -->
 
 
-<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="RObust Autonomous Mobility Lab Feed">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="ROAM-Lab Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -128,6 +128,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css">
 
+
+
   </head>
 
   <body>
@@ -143,7 +145,7 @@
       <nav id="site-nav" class="greedy-nav">
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">RObust Autonomous Mobility Lab</a></li>
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">ROAM-Lab</a></li>
           
             
             <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
@@ -171,160 +173,184 @@
 </div>
 
     
+<style>
+  .team-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
 
+  .grid__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
 
+  .card__wrapper {
+    flex: 1 1 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
 
-<div id="main" role="main">
+  .card__wrapper:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .card__image img {
+    width: 350px;
+    height: 150px;
+    border-radius: 0%;
+    object-fit: cover;
+  }
+
+  .card__body h3 {
+    margin: 0 0 0.2rem 0;
+  }
+
+  .card__body p {
+    margin: 0.2rem 0;
+  }
+
+  hr.section-divider {
+    margin: 3rem 0;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+
+  @media (max-width: 768px) {
+    .card__wrapper {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="team-container">
   
+    
+    
+    
 
+    
 
-  <div class="sidebar sticky">
+    <h2>Faculty</h2>
+    <div class="grid__wrapper">
+      
+        <div class="card__wrapper" onclick="location.href='/team/ozaslan/'">
+          <div class="card__image">
+            
+            <img src="/images/team/ozaslan.png" alt="Dr. Tolga Ozaslan" class="img-responsive" onerror="this.onerror=null;this.src='/images/team/default.png';" />
+          </div>
+          <div class="card__body">
+            <h3>Dr. Tolga Ozaslan</h3>
+            <p style="font-weight: 500;">
+              Principal Investigator
+                
+            </p>
+            
+              <p style="font-size: 0.9rem; color: #555;">Tolga Ozaslan is the Principal Investigator of ROAM Lab. His research focuses on perception, state estimation, and autonomous navigation for...</p>
+            
+          </div>
+        </div>
+      
+    </div>
+
+    
   
-
-
-
-<div itemscope itemtype="http://schema.org/Person">
-
-  <div class="author__avatar">
     
-    	<img src="http://localhost:4000/images/profile-ozaslan.png" class="author__avatar" alt="Tolga Özaslan, PhD">
     
-  </div>
-
-  <div class="author__content">
-    <h3 class="author__name">Tolga Özaslan, PhD</h3>
     
-    <p class="author__bio">Roboticist</p>
-  </div>
 
-  <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
-      <!-- Font Awesome icons / Biographic information  -->
-      
-        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Ankara / Türkiye</li>
-      
-      
-        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Ankara Yıldırım Beyazıt Üniversitesi</li>
-      
-      
-        <li><a href="https://avesis.aybu.edu.tr/tozaslan"><i class="fas fa-fw fa-link icon-pad-right" aria-hidden="true"></i>Website</a></li>
-      
-      
-        <li><a href="mailto:tozaslan@aybu.edu.tr"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
-      
+    
+      <hr class="section-divider" />
+    
 
-      <!-- Font Awesome and Academicons icons / Academic websites -->
+    <h2>PhD Students</h2>
+    <div class="grid__wrapper">
       
+        <div class="card__wrapper" onclick="location.href='/team/duru/'">
+          <div class="card__image">
             
+            <img src="/images/team/duru.png" alt="Ahmet Sadik Duru" class="img-responsive" onerror="this.onerror=null;this.src='/images/team/default.png';" />
+          </div>
+          <div class="card__body">
+            <h3>Ahmet Sadik Duru</h3>
+            <p style="font-weight: 500;">
+              PhD Student
+                
+            </p>
+            
+              <p style="font-size: 0.9rem; color: #555;">Ahmet Sadık Duru is a PhD student working on visual-inertial SLAM for aerial robots. His research interests include sensor fusion,...</p>
+            
+          </div>
+        </div>
       
-        <li><a href="https://scholar.google.com/citations?user=ilnEoOMAAAAJ"><i class="ai ai-google-scholar ai-fw icon-pad-right"></i>Google Scholar</a></li>
-      
-      
-      
-      
-        <li><a href="https://orcid.org/0000-0002-5002-0670"><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
-      
-                              
-      
-      
-        <li><a href="https://www.scopus.com/authid/detail.uri?authorId=56602764000"><i class="ai ai-scopus ai-fw icon-pad-right"></i>Scopus</a></li>
-      
+    </div>
 
-      <!-- Font Awesome icons / Repositories and software development -->
-      
-            
-            
-      
-        <li><a href="https://github.com/tozaslan"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
-      
-            
-            
-
-      <!-- Font Awesome icons / Social media -->
-      
-      
-            
-      
-                  
-                  
-      
-            
-            
-      
-        <li><a href="https://www.linkedin.com/in/tolga-%C3%B6zaslan-67895132"><i class="fab fa-fw fa-linkedin icon-pad-right" aria-hidden="true"></i>LinkedIn</a></li>
-            
-      
-            
-                  
-            
-      
-            
-            
-      
-        <li><a href="https://twitter.com/tzslan"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
-      
-              
-      
-                      
-      
-      
-            
-    </ul>
-  </div>
-</div>
-
+    
   
-  </div>
+    
+    
+    
+  
+    
+    
+    
 
+    
+      <hr class="section-divider" />
+    
 
-  <div class="archive">
-    
-      <h1 class="page__title">Team</h1>
-    
-    
-<h2>Principal Investigator</h2>
-<div class="grid__wrapper">
-    
-      <div class="card__wrapper">
-        <div class="card__image">
-          
+    <h2>Undergraduate Students</h2>
+    <div class="grid__wrapper">
+      
+        <div class="card__wrapper" onclick="location.href='/team/gencer/'">
+          <div class="card__image">
+            
+            <img src="/images/team/gencer.png" alt="Uzay Gençer" class="img-responsive" onerror="this.onerror=null;this.src='/images/team/default.png';" />
+          </div>
+          <div class="card__body">
+            <h3>Uzay Gençer</h3>
+            <p style="font-weight: 500;">
+              Undergraduate Student
+                
+            </p>
+            
+          </div>
         </div>
-        <div class="card__body">
-          <h3><a href="/team/ozaslan/">Dr. Tolga Ozaslan</a></h3>
-          
-            <p><a href="mailto:tozaslan@roamlab.org">tozaslan@roamlab.org</a></p>
-          
-          
-            <p><a href="https://tolgaozaslan.dev" target="_blank">Website</a></p>
-          
+      
+        <div class="card__wrapper" onclick="location.href='/team/sariogul/'">
+          <div class="card__image">
+            
+            <img src="/images/team/sariogul.png" alt="Buğra Berk Sarıoğul" class="img-responsive" onerror="this.onerror=null;this.src='/images/team/default.png';" />
+          </div>
+          <div class="card__body">
+            <h3>Buğra Berk Sarıoğul</h3>
+            <p style="font-weight: 500;">
+              Undergraduate Student
+                
+            </p>
+            
+          </div>
         </div>
-      </div>
-    
-  </div>
+      
+    </div>
 
-<h2>PhD Student</h2>
-<div class="grid__wrapper">
     
-      <div class="card__wrapper">
-        <div class="card__image">
-          
-        </div>
-        <div class="card__body">
-          <h3><a href="/team/duru/">Ahmet Sadik Duru</a></h3>
-          
-            <p><a href="mailto:jane@university.edu">jane@university.edu</a></p>
-          
-          
-            <p><a href="https://janedoe.dev" target="_blank">Website</a></p>
-          
-        </div>
-      </div>
+  
     
-  </div>
-
-
-  </div>
+    
+    
+  
 </div>
 
 
@@ -355,7 +381,7 @@
 
 <div class="page__footer-copyright">
   &copy; 2025 Tolga Özaslan, PhD, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
-  Site last updated 2025-05-31
+  Site last updated 2025-06-01
 </div>
 
       </footer>

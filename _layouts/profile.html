@@ -2,176 +2,155 @@
 layout: default
 ---
 
-<div class="team-profile-container" style="max-width: 960px; margin: auto; padding: 2rem 1rem;">
-  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
-    
-    <!-- Profile Picture -->
-    <div style="flex: 0 0 160px;">
-      {% assign image_path = page.image | default: '/images/team/' | append: page.slug | append: '.png' %}
-      <img src="{{ image_path | relative_url }}" 
-            alt="{{ page.title }}" 
-            style="width: 100%; border-radius: 8px;">
-    </div>
+<style>
+  .profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+  }
 
-    <!-- Basic Info -->
-    <div style="flex: 1;">
-      <h1 style="margin-bottom: 0.5rem;">{{ page.title }}</h1>
+  .profile-main {
+    flex: 1 1 60%;
+  }
 
-      <p style="margin: 0.2rem 0;"><strong>Role:</strong>
-        {% case page.role %}
-          {% when "pi" %}Principal Investigator
-          {% when "phd" %}PhD Student
-          {% when "msc" %}MSc Student
-          {% when "undergrad" %}Undergraduate Student
-          {% when "researcher" %}Researcher
-          {% else %}{{ page.role | capitalize }}
-        {% endcase %}
-      </p>
+  .profile-sidebar {
+    flex: 1 1 300px;
+    text-align: center;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
 
-      {% if page.email %}
-        <p style="margin: 0.2rem 0;"><strong>Email:</strong> <a href="mailto:{{ page.email }}">{{ page.email }}</a></p>
-      {% endif %}
+  .profile-sidebar img {
+    width: 100%;
+    max-width: 240px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
 
-      {% if page.website %}
-        <p style="margin: 0.2rem 0;"><strong>Website:</strong> <a href="{{ page.website }}" target="_blank">{{ page.website }}</a></p>
-      {% endif %}
+  .profile-sidebar h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
 
-      {% if page.cv %}
-        <p style="margin: 0.2rem 0;"><strong>CV:</strong> <a href="{{ page.cv | relative_url }}" target="_blank">Download PDF</a></p>
-      {% endif %}
+  .profile-sidebar p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+    color: #444;
+  }
 
-      <!-- Social Links -->
-      <div style="margin-top: 0.5rem;">
-        {% if page.github %}
-          <a href="https://github.com/{{ page.github }}" target="_blank" title="GitHub">
-            <i class="fab fa-github fa-lg" style="margin-right: 0.5rem;"></i>
-          </a>
-        {% endif %}
-        {% if page.linkedin %}
-          <a href="https://www.linkedin.com/in/{{ page.linkedin }}" target="_blank" title="LinkedIn">
-            <i class="fab fa-linkedin fa-lg" style="margin-right: 0.5rem;"></i>
-          </a>
-        {% endif %}
-        {% if page.twitter %}
-          <a href="https://twitter.com/{{ page.twitter }}" target="_blank" title="Twitter">
-            <i class="fab fa-twitter fa-lg" style="margin-right: 0.5rem;"></i>
-          </a>
-        {% endif %}
-        {% if page.scholar %}
-          <a href="https://scholar.google.com/citations?user={{ page.scholar }}" target="_blank" title="Google Scholar">
-            <i class="ai ai-google-scholar ai-lg" style="margin-right: 0.5rem;"></i>
-          </a>
-        {% endif %}
-        {% if page.orcid %}
-          <a href="https://orcid.org/{{ page.orcid }}" target="_blank" title="ORCID">
-            <i class="ai ai-orcid ai-lg" style="margin-right: 0.5rem;"></i>
-          </a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
+  .social-icons a {
+    margin: 0 0.3rem;
+    color: #444;
+    font-size: 1.4rem;
+  }
 
-  <hr style="margin: 2rem 0;">
+  .social-icons a:hover {
+    color: #0056b3;
+  }
 
-  <!-- Biography -->
-  {% if page.bio %}
-    <div>
-      <h3>Biography</h3>
+  .profile-main h1 {
+    margin-bottom: 1.2rem;
+  }
+
+  .profile-main p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .profile-section {
+    margin-top: 2.5rem;
+  }
+
+  .profile-section h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-section ul {
+    padding-left: 1.2rem;
+  }
+</style>
+
+<div class="profile-container">
+  <!-- Main Text Content -->
+  <div class="profile-main">
+    <h1>{{ page.title }}</h1>
+
+    {% if page.bio %}
       <p>{{ page.bio }}</p>
-    </div>
-  {% endif %}
+    {% endif %}
 
-  <!-- Research Topics -->
-  {% if page.research_topics %}
-    <div>
-      <h3>Research Topics</h3>
-      <ul>
-        {% for topic in page.research_topics %}
-          <li>{{ topic }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+    {% if page.research_topics %}
+      <div class="profile-section">
+        <h3>Research Interests</h3>
+        <ul>
+          {% for topic in page.research_topics %}
+            <li>{{ topic }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
 
-  <!-- Education -->
-  {% if page.education %}
-    <div>
-      <h3>Education</h3>
-      <ul>
-        {% if page.education.phd %}
-          <li><strong>PhD:</strong> {{ page.education.phd }}</li>
-        {% endif %}
-        {% if page.education.msc %}
-          <li><strong>MSc:</strong> {{ page.education.msc }}</li>
-        {% endif %}
-        {% if page.education.undergrad %}
-          <li><strong>Undergrad:</strong> {{ page.education.undergrad }}</li>
-        {% endif %}
-      </ul>
-    </div>
-  {% endif %}
+    {% if page.education %}
+      <div class="profile-section">
+        <h3>Education</h3>
+        <ul>
+          {% if page.education.phd %}<li><strong>PhD:</strong> {{ page.education.phd }}</li>{% endif %}
+          {% if page.education.msc %}<li><strong>MSc:</strong> {{ page.education.msc }}</li>{% endif %}
+          {% if page.education.undergrad %}<li><strong>Undergrad:</strong> {{ page.education.undergrad }}</li>{% endif %}
+        </ul>
+      </div>
+    {% endif %}
 
-  <!-- Associated Projects -->
-  {% assign my_projects = site.projects | where_exp: "project", "project.team contains page.slug" %}
-  {% if my_projects.size > 0 %}
-    <div>
-      <h3>Projects</h3>
-      <ul>
-        {% for project in my_projects %}
-          <li><a href="{{ project.url | relative_url }}">{{ project.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-
-  <!-- Markdown Content -->
-  {% if content != "" %}
-    <div>
-      <h3>More</h3>
-      {{ content }}
-    </div>
-  {% endif %}
-
-
-{% assign team_members = site.team | sort: 'slug' %}
-{% assign current_index = nil %}
-
-{% for member in team_members %}
-  {% if member.url == page.url %}
-    {% assign current_index = forloop.index0 %}
-  {% endif %}
-{% endfor %}
-
-{% assign prev_index = current_index | minus: 1 %}
-{% assign next_index = current_index | plus: 1 %}
-
-{% if current_index != nil %}
-  <div class="publication-nav" style="display: flex; margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1.5rem;">
-    
-    <div style="flex: 1; text-align: left;">
-      {% if prev_index >= 0 %}
-        {% assign prev_member = team_members[prev_index] %}
-        <a class="btn btn--inverse" href="{{ prev_member.url | relative_url }}">
-          <i class="fas fa-arrow-left" style="margin-right: 0.25rem;"></i> Previous
-        </a>
-      {% else %}
-        <span class="btn btn--inverse btn--disabled">Previous</span>
-      {% endif %}
-    </div>
-
-    <div style="flex: 1; text-align: right;">
-      {% if next_index < team_members.size %}
-        {% assign next_member = team_members[next_index] %}
-        <a class="btn btn--inverse" href="{{ next_member.url | relative_url }}">
-          Next <i class="fas fa-arrow-right" style="margin-left: 0.25rem;"></i>
-        </a>
-      {% else %}
-        <span class="btn btn--inverse btn--disabled">Next</span>
-      {% endif %}
-    </div>
-
+    {% assign my_projects = site.projects | where_exp: "p", "p.team contains page.slug" %}
+    {% if my_projects.size > 0 %}
+      <div class="profile-section">
+        <h3>Projects</h3>
+        <ul>
+          {% for project in my_projects %}
+            <li><a href="{{ project.url | relative_url }}">{{ project.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
   </div>
-{% endif %}
 
+  <!-- Sidebar with Image and Info -->
+  <div class="profile-sidebar">
+    {% assign img_path = '/images/team/' | append: page.slug | append: '.png' %}
+    <img src="{{ img_path | relative_url }}"
+         alt="{{ page.title }}"
+         onerror="this.onerror=null;this.src='/images/team/default.png';">
 
+    <h3>{{ page.title }}</h3>
+
+    {% if page.email %}
+      <p><i class="fas fa-envelope"></i> <a href="mailto:{{ page.email }}">{{ page.email }}</a></p>
+    {% endif %}
+    {% if page.linkedin %}
+      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/{{ page.linkedin }}" target="_blank">{{ page.linkedin }}</a></p>
+    {% endif %}
+    {% if page.orcid %}
+      <p><i class="ai ai-orcid"></i> <a href="https://orcid.org/{{ page.orcid }}" target="_blank">{{ page.orcid }}</a></p>
+    {% endif %}
+    {% if page.github %}
+      <p><i class="fab fa-github"></i> <a href="https://github.com/{{ page.github }}" target="_blank">{{ page.github }}</a></p>
+    {% endif %}
+    {% if page.cv %}
+      <p><i class="fas fa-file-pdf"></i> <a href="{{ page.cv | relative_url }}" target="_blank">Download CV</a></p>
+    {% endif %}
+
+    <div class="social-icons">
+      {% if page.email %}<a href="mailto:{{ page.email }}"><i class="fas fa-envelope"></i></a>{% endif %}
+      {% if page.linkedin %}<a href="https://www.linkedin.com/in/{{ page.linkedin }}"><i class="fab fa-linkedin"></i></a>{% endif %}
+      {% if page.twitter %}<a href="https://twitter.com/{{ page.twitter }}"><i class="fab fa-twitter"></i></a>{% endif %}
+      {% if page.github %}<a href="https://github.com/{{ page.github }}"><i class="fab fa-github"></i></a>{% endif %}
+    </div>
+  </div>
 </div>

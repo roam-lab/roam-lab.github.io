@@ -21,5 +21,3 @@ education:
   msc: Ankara Yıldırım Beyazıt University, Mechatronics Engineering
   undergrad: Middle East Technical University, Mechanical Engineering
 ---
-
-Ahmet is a PhD student in the ROAM lab, contributing to projects on localization and navigation for MAVs in challenging environments.
