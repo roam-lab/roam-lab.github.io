@@ -8,6 +8,9 @@ date: 2019-06-26
 venue: 'IEEE Robotics and Automation Letters (RA-L)'
 paperurl: '/files/ozaslan2019_mavnet.pdf'
 citation: '<i>Nguyen, T., Shivakumar, S. S., Miller, I. D., Keller, J., Lee, E. S., Zhou, A., <b>Özaslan, T.</b>, Loianno, G., Harwood, J. H., Wozencraft, J. M., Taylor, C. J., & Kumar, V. (2019). "MAVNet: An Effective Semantic Segmentation Micro-Network for MAV-based Tasks." <i>IEEE Robotics and Automation Letters</i>, 4(4), 3908–3915.</i>'
+slug: ozaslan2019_mavnet
+authors_slugs:
+  - ozaslan
 ---
 This paper introduces **MAVNet**, a compact and efficient neural network for real-time semantic segmentation on resource-constrained micro aerial vehicles (MAVs). Designed with size, weight, and power (SWaP) constraints in mind, MAVNet uses a small number of parameters while maintaining performance comparable to heavier models in empirical tasks.
 

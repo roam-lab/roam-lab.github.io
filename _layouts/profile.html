@@ -153,4 +153,55 @@ layout: default
       {% if page.github %}<a href="https://github.com/{{ page.github }}"><i class="fab fa-github"></i></a>{% endif %}
     </div>
   </div>
+
+  {% assign authored_pubs = site.publications | where_exp: "pub", "pub.authors_slugs contains page.slug" %}
+  {% if authored_pubs.size > 0 %}
+    <div class="profile-section">
+      <h3>Publications</h3>
+      <ul>
+        {% assign pub_categories = 
+  "manuscripts:Journal Articles,
+   conferences:Conference Papers,
+   books:Books / Chapters,
+   thesis:Theses,
+   patent:Patents" | split: "," %}
+
+{% for pair in pub_categories %}
+  {% assign parts = pair | split: ":" %}
+  {% assign cat_key = parts[0] | strip %}
+  {% assign cat_name = parts[1] | strip %}
+
+  {% assign pubs_in_cat = site.publications | where: "category", cat_key %}
+  {% assign authored_cat_pubs = pubs_in_cat | where_exp: "p", "p.authors_slugs contains page.slug" %}
+  {% assign sorted_cat_pubs = authored_cat_pubs | sort: "date" | reverse %}
+
+  {% if sorted_cat_pubs.size > 0 %}
+    <div class="profile-section" style="margin-top: 2rem;">
+      <h3>{{ cat_name }}</h3>
+      <ul>
+        {% for pub in sorted_cat_pubs %}
+          {% assign year = pub.date | date: "%Y" %}
+          <li style="margin-bottom: 0.6rem;">
+            <span style="margin-right: 0.5rem;">
+              {% case pub.category %}
+                {% when "manuscripts" %}<i class="fas fa-file-alt" title="Journal"></i>
+                {% when "conferences" %}<i class="fas fa-chalkboard-teacher" title="Conference"></i>
+                {% when "books" %}<i class="fas fa-book" title="Book/Chapter"></i>
+                {% when "thesis" %}<i class="fas fa-graduation-cap" title="Thesis"></i>
+                {% when "patent" %}<i class="fas fa-certificate" title="Patent"></i>
+                {% else %}<i class="fas fa-file" title="Other"></i>
+              {% endcase %}
+            </span>
+            <a href="{{ pub.url | relative_url }}">{{ pub.title }}</a>
+            <span style="color: #555;">– <em>{{ pub.venue }}</em>, {{ year }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
 </div>

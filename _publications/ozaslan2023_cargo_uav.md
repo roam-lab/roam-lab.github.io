@@ -8,6 +8,10 @@ date: 2023-10-01
 venue: '7th International Symposium on Innovative Approaches in Smart Technologies (ISAS), IEEE'
 paperurl: '/files/ozaslan2023_cargo_uav.pdf'
 citation: '<i>Duru, A. S., <b>Özaslan, T.</b>, & Soygüder, S. (2023). "Enhancing Trajectory Following in VTOL Cargo UAVs: Adaptive Control in Changing Payload Scenarios." In <i>Proceedings of the 7th International Symposium on Innovative Approaches in Smart Technologies (ISAS)</i>, IEEE, pp. 1–9.</i>'
+slug: ozaslan2023_cargo_uav
+authors_slugs:
+  - ozaslan
+  - duru
 ---
 This paper addresses the challenge of performance degradation in UAV control systems caused by varying payload conditions during continuous flight. Conventional PID controllers, while simple and widely used, lack adaptability to dynamic changes in system mass and inertia, especially for vertical takeoff and landing (VTOL) cargo UAVs.
 

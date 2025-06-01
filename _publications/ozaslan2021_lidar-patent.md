@@ -8,6 +8,9 @@ date: 2021-12-01
 venue: 'U.S. Patent Application Publication US 2021/0373173 A1'
 paperurl: '/files/ozaslan2021_lidar-patent.pdf'  # optional, if hosted locally
 citation: '<i><b>Özaslan, T.</b> (2021). "Identifying Background Features Using LiDAR." U.S. Patent Application Publication US 2021/0373173 A1.</i>'
+slug: ozaslan2021_lidar-patent
+authors_slugs:
+  - ozaslan
 ---
 
 This patent introduces a method for identifying background structures in LiDAR point cloud data to isolate foreground objects and extract drivable areas. 

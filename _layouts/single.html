@@ -74,6 +74,31 @@ layout: default
         {% endif %}
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+
+        {% if page.authors_slugs %}
+        <p><strong>Related people:</strong>
+          <span style="font-size: 85%; font-style: italic;">
+            {% assign author_list = "" %}
+            {% for slug in page.authors_slugs %}
+              {% assign author = site.team | where: "slug", slug | first %}
+              {% if author %}
+                {% assign author_name = author.title %}
+                {% assign author_url = author.url | relative_url %}
+                {% capture author_link %}<a href="{{ author_url }}">{{ author_name }}</a>{% endcapture %}
+                {% assign author_list = author_list | append: author_link %}
+              {% else %}
+                {% assign author_list = author_list | append: slug %}
+              {% endif %}
+              {% unless forloop.last %}
+                {% assign author_list = author_list | append: ", " %}
+              {% endunless %}
+            {% endfor %}
+            {{ author_list }}
+          </span>
+        </p>
+      {% endif %}
+
+
       </section>
 
       <footer class="page__meta">
@@ -91,6 +116,7 @@ layout: default
     {% if site.comments.provider and page.comments %}
       {% include comments.html %}
     {% endif %}
+
   </article>
 
   {% comment %}<!-- only show related on a post page when not disabled -->{% endcomment %}
@@ -106,4 +132,6 @@ layout: default
       </div>
     </div>
   {% endif %}
+
+
 </div>

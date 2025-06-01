@@ -8,6 +8,9 @@ date: 2020-01-01
 venue: 'PhD Thesis, University of Pennsylvania'
 paperurl: '/files/ozaslan2020_thesis.pdf'
 citation: '<i><b>Özaslan, T.</b> (2020). "Estimation, Mapping and Navigation with Micro Aerial Vehicles for Infrastructure Inspection." PhD Thesis, University of Pennsylvania.</i>'
+slug: ozaslan2020_thesis
+authors_slugs:
+  - ozaslan
 ---
 
 This thesis investigates the use of Micro Aerial Vehicles (MAVs) for infrastructure inspection in GPS-denied, tunnel-like environments such as dam penstocks. 
