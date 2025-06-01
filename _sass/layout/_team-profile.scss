@@ -1,0 +1,50 @@
+.team-profile-container {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  background-color: #fafafa;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.team-profile-header {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.team-profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.team-profile-info {
+  flex-grow: 1;
+}
+
+.team-profile-info h1 {
+  margin-top: 0;
+}
+
+.team-profile-bio {
+  margin-top: 2rem;
+  line-height: 1.6;
+}
+
+.team-profile-bio h2 {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.4rem;
+}
+
+.team-profile-bio ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+

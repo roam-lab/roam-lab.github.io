@@ -1,0 +1,177 @@
+---
+layout: default
+---
+
+<div class="team-profile-container" style="max-width: 960px; margin: auto; padding: 2rem 1rem;">
+  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+    
+    <!-- Profile Picture -->
+    <div style="flex: 0 0 160px;">
+      {% assign image_path = page.image | default: '/images/team/' | append: page.slug | append: '.png' %}
+      <img src="{{ image_path | relative_url }}" 
+            alt="{{ page.title }}" 
+            style="width: 100%; border-radius: 8px;">
+    </div>
+
+    <!-- Basic Info -->
+    <div style="flex: 1;">
+      <h1 style="margin-bottom: 0.5rem;">{{ page.title }}</h1>
+
+      <p style="margin: 0.2rem 0;"><strong>Role:</strong>
+        {% case page.role %}
+          {% when "pi" %}Principal Investigator
+          {% when "phd" %}PhD Student
+          {% when "msc" %}MSc Student
+          {% when "undergrad" %}Undergraduate Student
+          {% when "researcher" %}Researcher
+          {% else %}{{ page.role | capitalize }}
+        {% endcase %}
+      </p>
+
+      {% if page.email %}
+        <p style="margin: 0.2rem 0;"><strong>Email:</strong> <a href="mailto:{{ page.email }}">{{ page.email }}</a></p>
+      {% endif %}
+
+      {% if page.website %}
+        <p style="margin: 0.2rem 0;"><strong>Website:</strong> <a href="{{ page.website }}" target="_blank">{{ page.website }}</a></p>
+      {% endif %}
+
+      {% if page.cv %}
+        <p style="margin: 0.2rem 0;"><strong>CV:</strong> <a href="{{ page.cv | relative_url }}" target="_blank">Download PDF</a></p>
+      {% endif %}
+
+      <!-- Social Links -->
+      <div style="margin-top: 0.5rem;">
+        {% if page.github %}
+          <a href="https://github.com/{{ page.github }}" target="_blank" title="GitHub">
+            <i class="fab fa-github fa-lg" style="margin-right: 0.5rem;"></i>
+          </a>
+        {% endif %}
+        {% if page.linkedin %}
+          <a href="https://www.linkedin.com/in/{{ page.linkedin }}" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin fa-lg" style="margin-right: 0.5rem;"></i>
+          </a>
+        {% endif %}
+        {% if page.twitter %}
+          <a href="https://twitter.com/{{ page.twitter }}" target="_blank" title="Twitter">
+            <i class="fab fa-twitter fa-lg" style="margin-right: 0.5rem;"></i>
+          </a>
+        {% endif %}
+        {% if page.scholar %}
+          <a href="https://scholar.google.com/citations?user={{ page.scholar }}" target="_blank" title="Google Scholar">
+            <i class="ai ai-google-scholar ai-lg" style="margin-right: 0.5rem;"></i>
+          </a>
+        {% endif %}
+        {% if page.orcid %}
+          <a href="https://orcid.org/{{ page.orcid }}" target="_blank" title="ORCID">
+            <i class="ai ai-orcid ai-lg" style="margin-right: 0.5rem;"></i>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <hr style="margin: 2rem 0;">
+
+  <!-- Biography -->
+  {% if page.bio %}
+    <div>
+      <h3>Biography</h3>
+      <p>{{ page.bio }}</p>
+    </div>
+  {% endif %}
+
+  <!-- Research Topics -->
+  {% if page.research_topics %}
+    <div>
+      <h3>Research Topics</h3>
+      <ul>
+        {% for topic in page.research_topics %}
+          <li>{{ topic }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Education -->
+  {% if page.education %}
+    <div>
+      <h3>Education</h3>
+      <ul>
+        {% if page.education.phd %}
+          <li><strong>PhD:</strong> {{ page.education.phd }}</li>
+        {% endif %}
+        {% if page.education.msc %}
+          <li><strong>MSc:</strong> {{ page.education.msc }}</li>
+        {% endif %}
+        {% if page.education.undergrad %}
+          <li><strong>Undergrad:</strong> {{ page.education.undergrad }}</li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Associated Projects -->
+  {% assign my_projects = site.projects | where_exp: "project", "project.team contains page.slug" %}
+  {% if my_projects.size > 0 %}
+    <div>
+      <h3>Projects</h3>
+      <ul>
+        {% for project in my_projects %}
+          <li><a href="{{ project.url | relative_url }}">{{ project.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Markdown Content -->
+  {% if content != "" %}
+    <div>
+      <h3>More</h3>
+      {{ content }}
+    </div>
+  {% endif %}
+
+
+{% assign team_members = site.team | sort: 'slug' %}
+{% assign current_index = nil %}
+
+{% for member in team_members %}
+  {% if member.url == page.url %}
+    {% assign current_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{% assign prev_index = current_index | minus: 1 %}
+{% assign next_index = current_index | plus: 1 %}
+
+{% if current_index != nil %}
+  <div class="publication-nav" style="display: flex; margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1.5rem;">
+    
+    <div style="flex: 1; text-align: left;">
+      {% if prev_index >= 0 %}
+        {% assign prev_member = team_members[prev_index] %}
+        <a class="btn btn--inverse" href="{{ prev_member.url | relative_url }}">
+          <i class="fas fa-arrow-left" style="margin-right: 0.25rem;"></i> Previous
+        </a>
+      {% else %}
+        <span class="btn btn--inverse btn--disabled">Previous</span>
+      {% endif %}
+    </div>
+
+    <div style="flex: 1; text-align: right;">
+      {% if next_index < team_members.size %}
+        {% assign next_member = team_members[next_index] %}
+        <a class="btn btn--inverse" href="{{ next_member.url | relative_url }}">
+          Next <i class="fas fa-arrow-right" style="margin-left: 0.25rem;"></i>
+        </a>
+      {% else %}
+        <span class="btn btn--inverse btn--disabled">Next</span>
+      {% endif %}
+    </div>
+
+  </div>
+{% endif %}
+
+
+</div>

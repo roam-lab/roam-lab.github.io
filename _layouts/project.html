@@ -1,0 +1,55 @@
+---
+layout: default
+---
+
+<div class="project-container" style="max-width: 900px; margin: auto; padding: 1.5rem;">
+
+  <!-- Header / Hero -->
+  {% if page.image %}
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" style="max-width: 100%; border-radius: 8px;">
+    </div>
+  {% endif %}
+
+  <h1>{{ page.title }}</h1>
+  {% if page.description %}
+    <p style="font-size: 1.1em; color: #555;">{{ page.description }}</p>
+  {% endif %}
+
+  <!-- Carousel -->
+  {% if page.images %}
+    <div class="carousel" style="margin: 1.5rem 0;">
+      {% for img in page.images %}
+        <a data-fancybox="gallery" href="{{ img | relative_url }}">
+          <img src="{{ img | relative_url }}" alt="Project image {{ forloop.index }}" style="max-width: 150px; margin: 0.5rem; border-radius: 4px;">
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Project Metadata -->
+  <div class="project-meta" style="margin-top: 1rem;">
+    {% if page.completion %}
+      <p><strong>Completion:</strong> {{ page.completion }}</p>
+    {% endif %}
+
+    {% if page.team %}
+      <p><strong>Team:</strong>
+        {% for member in page.team %}
+          {% assign person = site.team | where: "slug", member | first %}
+          {% if person %}
+            <a href="{{ person.url | relative_url }}">{{ person.title }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endif %}
+        {% endfor %}
+      </p>
+    {% endif %}
+  </div>
+
+  <hr style="margin: 1.5rem 0;">
+
+  <!-- Main Content -->
+  <div class="project-body">
+    {{ content }}
+  </div>
+
+</div>
