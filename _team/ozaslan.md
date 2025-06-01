@@ -1,21 +1,21 @@
 ---
-title: Dr. Tolga Ozaslan
+title: Tolga Ozaslan
 role: pi
 slug: ozaslan
-email: tozaslan@roamlab.org
+email: tozaslan@aybu.edu.tr
 website: https://tolgaozaslan.dev
-github: tozaslan
-linkedin: tozaslan
-twitter: tozaslan_
-scholar: cA0DFK8AAAAJ
-orcid: 0000-0002-1234-5678
+github: ozaslan
+linkedin: tolga-özaslan-67895132
+twitter: tzslan
+scholar: ilnEoOMAAAAJ
+orcid: 0000-0002-5002-0670
 layout: profile
-cv: /files/cv_ozaslan.pdf
+cv: /files/resume-ozaslan.pdf
 permalink: /team/ozaslan/
 
 bio: >
-  Tolga Ozaslan is the Principal Investigator of ROAM Lab. His research focuses on perception,
-  state estimation, and autonomous navigation for aerial and ground robots in GPS-denied environments.
+  Tolga Ozaslan is the Principal Investigator of ROAM Lab. 
+  His research focuses on perception, state estimation, and autonomous navigation for aerial and ground robots in GPS-denied environments.
 
 research_topics:
   - Visual-Inertial Odometry

@@ -128,30 +128,14 @@ layout: default
          alt="{{ page.title }}"
          onerror="this.onerror=null;this.src='/images/team/default.png';">
 
-    <h3>{{ page.title }}</h3>
-
-    {% if page.email %}
-      <p><i class="fas fa-envelope"></i> <a href="mailto:{{ page.email }}">{{ page.email }}</a></p>
-    {% endif %}
-    {% if page.linkedin %}
-      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/{{ page.linkedin }}" target="_blank">{{ page.linkedin }}</a></p>
-    {% endif %}
-    {% if page.orcid %}
-      <p><i class="ai ai-orcid"></i> <a href="https://orcid.org/{{ page.orcid }}" target="_blank">{{ page.orcid }}</a></p>
-    {% endif %}
-    {% if page.github %}
-      <p><i class="fab fa-github"></i> <a href="https://github.com/{{ page.github }}" target="_blank">{{ page.github }}</a></p>
-    {% endif %}
-    {% if page.cv %}
-      <p><i class="fas fa-file-pdf"></i> <a href="{{ page.cv | relative_url }}" target="_blank">Download CV</a></p>
-    {% endif %}
-
     <div class="social-icons">
-      {% if page.email %}<a href="mailto:{{ page.email }}"><i class="fas fa-envelope"></i></a>{% endif %}
-      {% if page.linkedin %}<a href="https://www.linkedin.com/in/{{ page.linkedin }}"><i class="fab fa-linkedin"></i></a>{% endif %}
-      {% if page.twitter %}<a href="https://twitter.com/{{ page.twitter }}"><i class="fab fa-twitter"></i></a>{% endif %}
-      {% if page.github %}<a href="https://github.com/{{ page.github }}"><i class="fab fa-github"></i></a>{% endif %}
+      {% if page.cv %}<a href="{{ page.cv | relative_url }}" target="_blank" title="Download CV"><i class="fas fa-file-pdf"></i></a>{% endif %}
+      {% if page.email %}<a href="mailto:{{ page.email }}" title="Email"><i class="fas fa-envelope"></i></a>{% endif %}
+      {% if page.linkedin %}<a href="https://www.linkedin.com/in/{{ page.linkedin }}" title="LinkedIn"><i class="fab fa-linkedin"></i></a>{% endif %}
+      {% if page.twitter %}<a href="https://twitter.com/{{ page.twitter }}" title="Twitter"><i class="fab fa-twitter"></i></a>{% endif %}
+      {% if page.github %}<a href="https://github.com/{{ page.github }}" title="GitHub"><i class="fab fa-github"></i></a>{% endif %}
     </div>
+
   </div>
 
   {% assign authored_pubs = site.publications | where_exp: "pub", "pub.authors_slugs contains page.slug" %}
@@ -160,46 +144,46 @@ layout: default
       <h3>Publications</h3>
       <ul>
         {% assign pub_categories = 
-  "manuscripts:Journal Articles,
-   conferences:Conference Papers,
-   books:Books / Chapters,
-   thesis:Theses,
-   patent:Patents" | split: "," %}
+          "manuscripts:Journal Articles,
+           conferences:Conference Papers,
+           books:Books / Chapters,
+           thesis:Theses,
+           patent:Patents" | split: "," %}
 
-{% for pair in pub_categories %}
-  {% assign parts = pair | split: ":" %}
-  {% assign cat_key = parts[0] | strip %}
-  {% assign cat_name = parts[1] | strip %}
+        {% for pair in pub_categories %}
+          {% assign parts = pair | split: ":" %}
+          {% assign cat_key = parts[0] | strip %}
+          {% assign cat_name = parts[1] | strip %}
 
-  {% assign pubs_in_cat = site.publications | where: "category", cat_key %}
-  {% assign authored_cat_pubs = pubs_in_cat | where_exp: "p", "p.authors_slugs contains page.slug" %}
-  {% assign sorted_cat_pubs = authored_cat_pubs | sort: "date" | reverse %}
+          {% assign pubs_in_cat = site.publications | where: "category", cat_key %}
+          {% assign authored_cat_pubs = pubs_in_cat | where_exp: "p", "p.authors_slugs contains page.slug" %}
+          {% assign sorted_cat_pubs = authored_cat_pubs | sort: "date" | reverse %}
 
-  {% if sorted_cat_pubs.size > 0 %}
-    <div class="profile-section" style="margin-top: 2rem;">
-      <h3>{{ cat_name }}</h3>
-      <ul>
-        {% for pub in sorted_cat_pubs %}
-          {% assign year = pub.date | date: "%Y" %}
-          <li style="margin-bottom: 0.6rem;">
-            <span style="margin-right: 0.5rem;">
-              {% case pub.category %}
-                {% when "manuscripts" %}<i class="fas fa-file-alt" title="Journal"></i>
-                {% when "conferences" %}<i class="fas fa-chalkboard-teacher" title="Conference"></i>
-                {% when "books" %}<i class="fas fa-book" title="Book/Chapter"></i>
-                {% when "thesis" %}<i class="fas fa-graduation-cap" title="Thesis"></i>
-                {% when "patent" %}<i class="fas fa-certificate" title="Patent"></i>
-                {% else %}<i class="fas fa-file" title="Other"></i>
-              {% endcase %}
-            </span>
-            <a href="{{ pub.url | relative_url }}">{{ pub.title }}</a>
-            <span style="color: #555;">– <em>{{ pub.venue }}</em>, {{ year }}</span>
-          </li>
+          {% if sorted_cat_pubs.size > 0 %}
+            <div class="profile-section" style="margin-top: 2rem;">
+              <h3>{{ cat_name }}</h3>
+              <ul>
+                {% for pub in sorted_cat_pubs %}
+                  {% assign year = pub.date | date: "%Y" %}
+                  <li style="margin-bottom: 0.6rem;">
+                    <span style="margin-right: 0.5rem;">
+                      {% case pub.category %}
+                        {% when "manuscripts" %}<i class="fas fa-file-alt" title="Journal"></i>
+                        {% when "conferences" %}<i class="fas fa-chalkboard-teacher" title="Conference"></i>
+                        {% when "books" %}<i class="fas fa-book" title="Book/Chapter"></i>
+                        {% when "thesis" %}<i class="fas fa-graduation-cap" title="Thesis"></i>
+                        {% when "patent" %}<i class="fas fa-certificate" title="Patent"></i>
+                        {% else %}<i class="fas fa-file" title="Other"></i>
+                      {% endcase %}
+                    </span>
+                    <a href="{{ pub.url | relative_url }}">{{ pub.title }}</a>
+                    <span style="color: #555;">– <em>{{ pub.venue }}</em>, {{ year }}</span>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
         {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-{% endfor %}
       </ul>
     </div>
   {% endif %}
