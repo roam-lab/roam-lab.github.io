@@ -1,0 +1,424 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>USPAV: Planning and Control of a Suspended Payload on an Unmanned Aerial Vehicle - ROAM-Lab</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="ROAM-Lab">
+<meta property="og:title" content="USPAV: Planning and Control of a Suspended Payload on an Unmanned Aerial Vehicle">
+
+
+  <link rel="canonical" href="http://localhost:4000/projects/uspav/">
+  <meta property="og:url" content="http://localhost:4000/projects/uspav/">
+
+
+
+  <meta property="og:description" name="description" content="USPAV explores control and motion planning for UAVs carrying suspended payloads, focusing on swing dynamics, trajectory optimization, and safe maneuvering.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "url": "http://localhost:4000",
+      "logo": "http://localhost:4000/images/images/roamlab-logo.png"
+    }
+  </script>
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "ROAM Lab",
+      "url" : "http://localhost:4000",
+      "sameAs" : ["https://github.com/roam-lab","https://scholar.google.com/citations?user=ilnEoOMAAAAJ","https://www.linkedin.com/in/tolga-%C3%B6zaslan-67895132","https://twitter.com/tzslan"]
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="ROAM-Lab Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+<!-- FancyBox CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+
+<!-- FancyBox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css">
+
+<link rel="stylesheet" href="/assets/css/projects-page.css">
+
+
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">ROAM-Lab</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/projects/">Projects</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/team/">Team</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <style>
+  .project-container {
+    max-width: 1280px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  .project-sidebar {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #fafafa;
+  }
+
+  .project-sidebar img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .project-sidebar .meta-block {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .project-sidebar h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+  }
+
+  .project-main {
+    flex: 3 1 600px;
+  }
+
+  .project-main h1 {
+    margin-top: 0;
+  }
+
+  .project-main p.description {
+    font-size: 1.1em;
+    color: #555;
+  }
+
+  .carousel {
+    margin: 1.5rem 0;
+  }
+
+  .carousel img {
+    max-width: 150px;
+    margin: 0.5rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .project-container {
+      flex-direction: column;
+    }
+    .project-sidebar, .project-main {
+      max-width: 100%;
+    }
+    .carousel img {
+      max-width: 100px;
+    }
+  }
+</style>
+
+<div class="project-container">
+
+  <!-- Sidebar -->
+  <aside class="project-sidebar">
+
+    
+      <img src="/images/projects/uspav/cover.png" alt="USPAV: Planning and Control of a Suspended Payload on an Unmanned Aerial Vehicle">
+    
+
+    
+      <div class="meta-block">
+        <h4>Completion</h4>
+        <p>Ongoing</p>
+      </div>
+    
+
+    
+      <div class="meta-block">
+        <h4>Team</h4>
+        <p>
+          
+            
+            
+              <a href="/team/duru/">Ahmet Sadık Duru</a>
+            
+          
+        </p>
+      </div>
+    
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="project-main">
+    <h1>USPAV: Planning and Control of a Suspended Payload on an Unmanned Aerial Vehicle</h1>
+
+    
+      <p class="description">USPAV explores control and motion planning for UAVs carrying suspended payloads, focusing on swing dynamics, trajectory optimization, and safe maneuvering.</p>
+    
+
+    
+      <div class="carousel">
+        
+          <a data-fancybox="gallery" href="/images/projects/uspav/01.png">
+            <img src="/images/projects/uspav/01.png" alt="Project image 1">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/uspav/02.png">
+            <img src="/images/projects/uspav/02.png" alt="Project image 2">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/uspav/03.png">
+            <img src="/images/projects/uspav/03.png" alt="Project image 3">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/uspav/04.png">
+            <img src="/images/projects/uspav/04.png" alt="Project image 4">
+          </a>
+        
+      </div>
+    
+
+    <hr style="margin: 1.5rem 0;">
+
+    <div class="project-body">
+      <h2 id="-project-overview">🚁 Project Overview</h2>
+
+<p><strong>USPAV</strong> (Unmanned aerial vehicle with Suspended Payload: Analysis and Validation) is a research project focusing on the complex problem of planning and control for UAVs carrying suspended payloads. These systems exhibit highly nonlinear and underactuated dynamics due to cable-induced oscillations.</p>
+
+<p>The project addresses key challenges such as:</p>
+
+<ul>
+  <li><strong>Payload swing suppression</strong></li>
+  <li><strong>Trajectory tracking under disturbance</strong></li>
+  <li><strong>Optimal control under dynamic constraints</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="-demo-video">🎥 Demo Video</h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+  </iframe>
+</div>
+
+<hr />
+
+<h2 id="-technical-highlights">✨ Technical Highlights</h2>
+
+<ul>
+  <li>Nonlinear modeling of cable-suspended payload dynamics</li>
+  <li>Real-time control implementations using MPC and LQR</li>
+  <li>Simulation environment in ROS 2 and Gazebo</li>
+  <li>Hardware-in-the-loop tests with a quadrotor testbed</li>
+</ul>
+
+<hr />
+
+<h2 id="️-applications">🛠️ Applications</h2>
+
+<ul>
+  <li><strong>Aerial logistics and cargo delivery</strong></li>
+  <li><strong>Disaster response with UAV-deployed tools</strong></li>
+  <li><strong>Autonomous aerial crane systems</strong></li>
+  <li><strong>Academic education in nonlinear control</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="-resources">📂 Resources</h2>
+
+<ul>
+  <li>Simulation code and controller models (to be released)</li>
+  <li>CAD files for UAV and payload interface</li>
+  <li>Project documentation and experimental results</li>
+</ul>
+
+
+    </div>
+  </main>
+
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/tozaslan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Tolga Özaslan, PhD, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-06-05
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

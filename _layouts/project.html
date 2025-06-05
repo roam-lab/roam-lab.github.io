@@ -2,54 +2,137 @@
 layout: default
 ---
 
-<div class="project-container" style="max-width: 900px; margin: auto; padding: 1.5rem;">
+<style>
+  .project-container {
+    max-width: 1280px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
 
-  <!-- Header / Hero -->
-  {% if page.image %}
-    <div style="text-align: center; margin-bottom: 1rem;">
-      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" style="max-width: 100%; border-radius: 8px;">
-    </div>
-  {% endif %}
+  .project-sidebar {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #fafafa;
+  }
 
-  <h1>{{ page.title }}</h1>
-  {% if page.description %}
-    <p style="font-size: 1.1em; color: #555;">{{ page.description }}</p>
-  {% endif %}
+  .project-sidebar img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
 
-  <!-- Carousel -->
-  {% if page.images %}
-    <div class="carousel" style="margin: 1.5rem 0;">
-      {% for img in page.images %}
-        <a data-fancybox="gallery" href="{{ img | relative_url }}">
-          <img src="{{ img | relative_url }}" alt="Project image {{ forloop.index }}" style="max-width: 150px; margin: 0.5rem; border-radius: 4px;">
-        </a>
-      {% endfor %}
-    </div>
-  {% endif %}
+  .project-sidebar .meta-block {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
 
-  <!-- Project Metadata -->
-  <div class="project-meta" style="margin-top: 1rem;">
+  .project-sidebar h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+  }
+
+  .project-main {
+    flex: 3 1 600px;
+  }
+
+  .project-main h1 {
+    margin-top: 0;
+  }
+
+  .project-main p.description {
+    font-size: 1.1em;
+    color: #555;
+  }
+
+  .carousel {
+    margin: 1.5rem 0;
+  }
+
+  .carousel img {
+    max-width: 150px;
+    margin: 0.5rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .project-container {
+      flex-direction: column;
+    }
+    .project-sidebar, .project-main {
+      max-width: 100%;
+    }
+    .carousel img {
+      max-width: 100px;
+    }
+  }
+</style>
+
+<div class="project-container">
+
+  <!-- Sidebar -->
+  <aside class="project-sidebar">
+
+    {% if page.image %}
+      <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+    {% endif %}
+
     {% if page.completion %}
-      <p><strong>Completion:</strong> {{ page.completion }}</p>
+      <div class="meta-block">
+        <h4>Completion</h4>
+        <p>{{ page.completion }}</p>
+      </div>
     {% endif %}
 
     {% if page.team %}
-      <p><strong>Team:</strong>
-        {% for member in page.team %}
-          {% assign person = site.team | where: "slug", member | first %}
-          {% if person %}
-            <a href="{{ person.url | relative_url }}">{{ person.title }}</a>{% unless forloop.last %}, {% endunless %}
-          {% endif %}
-        {% endfor %}
-      </p>
+      <div class="meta-block">
+        <h4>Team</h4>
+        <p>
+          {% for member in page.team %}
+            {% assign person = site.team | where: "slug", member | first %}
+            {% if person %}
+              <a href="{{ person.url | relative_url }}">{{ person.title }}</a>{% unless forloop.last %}, {% endunless %}
+            {% endif %}
+          {% endfor %}
+        </p>
+      </div>
     {% endif %}
-  </div>
 
-  <hr style="margin: 1.5rem 0;">
+  </aside>
 
   <!-- Main Content -->
-  <div class="project-body">
-    {{ content }}
-  </div>
+  <main class="project-main">
+    <h1>{{ page.title }}</h1>
+
+    {% if page.description %}
+      <p class="description">{{ page.description }}</p>
+    {% endif %}
+
+    {% if page.images %}
+      <div class="carousel">
+        {% for img in page.images %}
+          <a data-fancybox="gallery" href="{{ img | relative_url }}">
+            <img src="{{ img | relative_url }}" alt="Project image {{ forloop.index }}">
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <hr style="margin: 1.5rem 0;">
+
+    <div class="project-body">
+      {{ content }}
+    </div>
+  </main>
 
 </div>

@@ -1,12 +1,13 @@
 ---
 title: Buğra Berk Sarıoğul
 role: undergrad
-slug: sariogul
+slug: sarioglu
 layout: profile
 permalink: /team/sariogul/
 
 education:
-  undergrad: Ankara Yıldırım Beyazıt University, Mechanical & Electrical Engineering (Double Major)
+  undergrad: Mechanical Engineering
+  undergrad: Electrical Engineering (Double Major)
 
 projects:
   - edurover

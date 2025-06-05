@@ -1,0 +1,425 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Rotary Inverted Pendulum: A Control Systems Experiment Platform - ROAM-Lab</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="ROAM-Lab">
+<meta property="og:title" content="Rotary Inverted Pendulum: A Control Systems Experiment Platform">
+
+
+  <link rel="canonical" href="http://localhost:4000/projects/rotary_pendulum/">
+  <meta property="og:url" content="http://localhost:4000/projects/rotary_pendulum/">
+
+
+
+  <meta property="og:description" name="description" content="The Rotary Inverted Pendulum is an educational platform for advanced control theory, designed for hands-on experiments in system modeling, LQR, and nonlinear dynamics.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "url": "http://localhost:4000",
+      "logo": "http://localhost:4000/images/images/roamlab-logo.png"
+    }
+  </script>
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Organization",
+      "name" : "ROAM Lab",
+      "url" : "http://localhost:4000",
+      "sameAs" : ["https://github.com/roam-lab","https://scholar.google.com/citations?user=ilnEoOMAAAAJ","https://www.linkedin.com/in/tolga-%C3%B6zaslan-67895132","https://twitter.com/tzslan"]
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="ROAM-Lab Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+<!-- FancyBox CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+
+<!-- FancyBox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css">
+
+<link rel="stylesheet" href="/assets/css/projects-page.css">
+
+
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="http://localhost:4000/">ROAM-Lab</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/projects/">Projects</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/team/">Team</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    <style>
+  .project-container {
+    max-width: 1280px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
+
+  .project-sidebar {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #fafafa;
+  }
+
+  .project-sidebar img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .project-sidebar .meta-block {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .project-sidebar h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+  }
+
+  .project-main {
+    flex: 3 1 600px;
+  }
+
+  .project-main h1 {
+    margin-top: 0;
+  }
+
+  .project-main p.description {
+    font-size: 1.1em;
+    color: #555;
+  }
+
+  .carousel {
+    margin: 1.5rem 0;
+  }
+
+  .carousel img {
+    max-width: 150px;
+    margin: 0.5rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .project-container {
+      flex-direction: column;
+    }
+    .project-sidebar, .project-main {
+      max-width: 100%;
+    }
+    .carousel img {
+      max-width: 100px;
+    }
+  }
+</style>
+
+<div class="project-container">
+
+  <!-- Sidebar -->
+  <aside class="project-sidebar">
+
+    
+      <img src="/images/projects/rotary_pendulum/cover.png" alt="Rotary Inverted Pendulum: A Control Systems Experiment Platform">
+    
+
+    
+      <div class="meta-block">
+        <h4>Completion</h4>
+        <p>Ongoing</p>
+      </div>
+    
+
+    
+      <div class="meta-block">
+        <h4>Team</h4>
+        <p>
+          
+            
+            
+              <a href="/team/gencer/">Uzay Gençer</a>
+            
+          
+        </p>
+      </div>
+    
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="project-main">
+    <h1>Rotary Inverted Pendulum: A Control Systems Experiment Platform</h1>
+
+    
+      <p class="description">The Rotary Inverted Pendulum is an educational platform for advanced control theory, designed for hands-on experiments in system modeling, LQR, and nonlinear dynamics.</p>
+    
+
+    
+      <div class="carousel">
+        
+          <a data-fancybox="gallery" href="/images/projects/rotary_pendulum/01.png">
+            <img src="/images/projects/rotary_pendulum/01.png" alt="Project image 1">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/rotary_pendulum/02.png">
+            <img src="/images/projects/rotary_pendulum/02.png" alt="Project image 2">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/rotary_pendulum/03.png">
+            <img src="/images/projects/rotary_pendulum/03.png" alt="Project image 3">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/rotary_pendulum/04.png">
+            <img src="/images/projects/rotary_pendulum/04.png" alt="Project image 4">
+          </a>
+        
+      </div>
+    
+
+    <hr style="margin: 1.5rem 0;">
+
+    <div class="project-body">
+      <h2 id="-about-the-project">🧭 About the Project</h2>
+
+<p>The <strong>Rotary Inverted Pendulum</strong> is a classic benchmark system in control engineering, designed to test a variety of control strategies under nonlinear and underactuated dynamics. This project provides a 3D-printable and modular version of the platform, suitable for both undergraduate and graduate-level education.</p>
+
+<p>It consists of a rotary base driven by a DC motor, with a rigid pendulum attached at the end. The system is both <strong>nonlinear</strong> and <strong>unstable</strong>, requiring sophisticated controllers to maintain the upright position of the pendulum.</p>
+
+<hr />
+
+<h2 id="-demo-video">🎥 Demo Video</h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/W-fFHeTX70Q" frameborder="0" allowfullscreen="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+  </iframe>
+</div>
+
+<hr />
+
+<h2 id="-key-features">✨ Key Features</h2>
+
+<ul>
+  <li><strong>Open-loop and closed-loop control experiments</strong></li>
+  <li><em>Model-based simulation</em> using MATLAB and Python</li>
+  <li>Implementation of <strong>PID</strong>, <strong>LQR</strong>, and <strong>state observer</strong> designs</li>
+  <li>High-resolution rotary encoder for angular feedback</li>
+  <li>Educational resources for modeling, linearization, and controller synthesis</li>
+</ul>
+
+<hr />
+
+<h2 id="️-educational-objectives">🛠️ Educational Objectives</h2>
+
+<p>The Rotary Inverted Pendulum is ideal for:</p>
+
+<ul>
+  <li><strong>Control systems laboratories</strong></li>
+  <li><em>Graduate-level nonlinear control coursework</em></li>
+  <li>Hands-on demonstrations of <strong>state-space modeling</strong></li>
+  <li>Benchmarking <strong>real-time control algorithms</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="-files--documentation">📦 Files &amp; Documentation</h2>
+
+<ul>
+  <li>Complete CAD files for 3D printing</li>
+  <li>Electronics schematics and PCB layout</li>
+  <li>MATLAB/Simulink and Python models for simulation and control</li>
+  <li>Setup and tuning guides for real-time experiments</li>
+</ul>
+
+<hr />
+
+<p>Let me know if you’d like to add links to GitHub, a DOI to a paper, or a BibTeX entry for citation.</p>
+
+    </div>
+  </main>
+
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/tozaslan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Tolga Özaslan, PhD, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-06-05
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

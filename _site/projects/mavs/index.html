@@ -19,7 +19,7 @@
 
 
 
-<title>OmniEye: 3D Mapping Sensor Module - ROAM-Lab</title>
+<title>MAVES: A MATLAB-Based 2D VTOL Simulator for STEM Education - ROAM-Lab</title>
 
 
 
@@ -29,15 +29,15 @@
 
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="ROAM-Lab">
-<meta property="og:title" content="OmniEye: 3D Mapping Sensor Module">
+<meta property="og:title" content="MAVES: A MATLAB-Based 2D VTOL Simulator for STEM Education">
 
 
-  <link rel="canonical" href="http://localhost:4000/projects/omnieye/">
-  <meta property="og:url" content="http://localhost:4000/projects/omnieye/">
+  <link rel="canonical" href="http://localhost:4000/projects/mavs/">
+  <meta property="og:url" content="http://localhost:4000/projects/mavs/">
 
 
 
-  <meta property="og:description" name="description" content="A modular sensor suite for real-time 3D mapping and data collection.">
+  <meta property="og:description" name="description" content="2D DroneSim is a ROS-based educational simulation environment designed to teach and test UAV control algorithms in a simplified 2D setting.">
 
 
 
@@ -130,6 +130,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css">
 
+<link rel="stylesheet" href="/assets/css/projects-page.css">
+
 
 
   </head>
@@ -174,70 +176,199 @@
   </div>
 </div>
 
-    <div class="project-container" style="max-width: 900px; margin: auto; padding: 1.5rem;">
+    <style>
+  .project-container {
+    max-width: 1280px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    gap: 2rem;
+  }
 
-  <!-- Header / Hero -->
-  
-    <div style="text-align: center; margin-bottom: 1rem;">
-      <img src="/images/projects/omnieye/cover.jpg" alt="OmniEye: 3D Mapping Sensor Module" style="max-width: 100%; border-radius: 8px;">
-    </div>
-  
+  .project-sidebar {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #fafafa;
+  }
 
-  <h1>OmniEye: 3D Mapping Sensor Module</h1>
-  
-    <p style="font-size: 1.1em; color: #555;">A modular sensor suite for real-time 3D mapping and data collection.</p>
-  
+  .project-sidebar img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
 
-  <!-- Carousel -->
-  
-    <div class="carousel" style="margin: 1.5rem 0;">
-      
-        <a data-fancybox="gallery" href="/images/projects/omnieye/1.jpg">
-          <img src="/images/projects/omnieye/1.jpg" alt="Project image 1" style="max-width: 150px; margin: 0.5rem; border-radius: 4px;">
-        </a>
-      
-        <a data-fancybox="gallery" href="/images/projects/omnieye/2.jpg">
-          <img src="/images/projects/omnieye/2.jpg" alt="Project image 2" style="max-width: 150px; margin: 0.5rem; border-radius: 4px;">
-        </a>
-      
-        <a data-fancybox="gallery" href="/images/projects/omnieye/3.jpg">
-          <img src="/images/projects/omnieye/3.jpg" alt="Project image 3" style="max-width: 150px; margin: 0.5rem; border-radius: 4px;">
-        </a>
-      
-    </div>
-  
+  .project-sidebar .meta-block {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
 
-  <!-- Project Metadata -->
-  <div class="project-meta" style="margin-top: 1rem;">
+  .project-sidebar h4 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+  }
+
+  .project-main {
+    flex: 3 1 600px;
+  }
+
+  .project-main h1 {
+    margin-top: 0;
+  }
+
+  .project-main p.description {
+    font-size: 1.1em;
+    color: #555;
+  }
+
+  .carousel {
+    margin: 1.5rem 0;
+  }
+
+  .carousel img {
+    max-width: 150px;
+    margin: 0.5rem;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .project-container {
+      flex-direction: column;
+    }
+    .project-sidebar, .project-main {
+      max-width: 100%;
+    }
+    .carousel img {
+      max-width: 100px;
+    }
+  }
+</style>
+
+<div class="project-container">
+
+  <!-- Sidebar -->
+  <aside class="project-sidebar">
+
     
-      <p><strong>Completion:</strong> May 2025</p>
+      <img src="/images/projects/maves/cover.png" alt="MAVES: A MATLAB-Based 2D VTOL Simulator for STEM Education">
     
 
     
-      <p><strong>Team:</strong>
-        
-          
-          
-            <a href="/team/ozaslan/">Tolga Ozaslan</a>, 
-          
-        
-          
-          
-            <a href="/team/duru/">Ahmet Sadık Duru</a>
-          
-        
-      </p>
+      <div class="meta-block">
+        <h4>Completion</h4>
+        <p>Completed</p>
+      </div>
     
-  </div>
 
-  <hr style="margin: 1.5rem 0;">
+    
+      <div class="meta-block">
+        <h4>Team</h4>
+        <p>
+          
+            
+            
+              <a href="/team/ozaslan/">Tolga Ozaslan</a>
+            
+          
+        </p>
+      </div>
+    
+
+  </aside>
 
   <!-- Main Content -->
-  <div class="project-body">
-    <p>OmniEye is a sensor suite for aerial and ground robots to gather synchronized, heterogeneous sensor data.
-It is designed for use in GPS-denied environments and supports multiple configurations across robotic platforms.</p>
+  <main class="project-main">
+    <h1>MAVES: A MATLAB-Based 2D VTOL Simulator for STEM Education</h1>
 
-  </div>
+    
+      <p class="description">2D DroneSim is a ROS-based educational simulation environment designed to teach and test UAV control algorithms in a simplified 2D setting.</p>
+    
+
+    
+      <div class="carousel">
+        
+          <a data-fancybox="gallery" href="/images/projects/maves/01.jpg">
+            <img src="/images/projects/maves/01.jpg" alt="Project image 1">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/maves/02.png">
+            <img src="/images/projects/maves/02.png" alt="Project image 2">
+          </a>
+        
+          <a data-fancybox="gallery" href="/images/projects/maves/03.png">
+            <img src="/images/projects/maves/03.png" alt="Project image 3">
+          </a>
+        
+      </div>
+    
+
+    <hr style="margin: 1.5rem 0;">
+
+    <div class="project-body">
+      <h2 id="-overview">🎯 Overview</h2>
+
+<p><strong>MAVES</strong> is a lightweight, open-source simulation platform developed for the design and evaluation of UAV control algorithms in a simplified 2D planar setting. It targets educational and rapid prototyping use cases where full 3D dynamics may not be necessary.</p>
+
+<p>Originally presented at <strong>ISAS 2025</strong>, the simulator offers real-time visualization, interactive command input, and modular physics configuration. It is implemented in Python using ROS 2 and integrates seamlessly with common control design workflows.</p>
+
+<hr />
+
+<h2 id="️-demo-video">📽️ Demo Video</h2>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+  <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+  </iframe>
+</div>
+
+<hr />
+
+<h2 id="-features">🛠 Features</h2>
+
+<ul>
+  <li>2D quadrotor dynamics with configurable parameters</li>
+  <li>Support for PID, LQR, and MPC controllers</li>
+  <li>Real-time visualization via <code class="language-plaintext highlighter-rouge">matplotlib</code> or <code class="language-plaintext highlighter-rouge">pygame</code></li>
+  <li>ROS 2-based modular node architecture</li>
+  <li>Logging and replay utilities for analysis</li>
+</ul>
+
+<hr />
+
+<h2 id="-applications">📚 Applications</h2>
+
+<ul>
+  <li>Undergraduate and graduate control systems courses</li>
+  <li>Rapid testing of flight controllers before full 3D deployment</li>
+  <li>Educational demos for linear vs nonlinear behavior</li>
+  <li>Autonomous hovering and waypoint tracking tasks</li>
+</ul>
+
+<hr />
+
+<h2 id="-resources">📦 Resources</h2>
+
+<ul>
+  <li>Full source code and documentation on GitHub</li>
+  <li>Step-by-step lab guides for classroom integration</li>
+  <li>Docker image for easy deployment</li>
+  <li>Sample controllers and benchmark results</li>
+</ul>
+
+<hr />
+
+<h2 id="-citation">📄 Citation</h2>
+
+
+    </div>
+  </main>
 
 </div>
 
@@ -269,7 +400,7 @@ It is designed for use in GPS-denied environments and supports multiple configur
 
 <div class="page__footer-copyright">
   &copy; 2025 Tolga Özaslan, PhD, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
-  Site last updated 2025-06-01
+  Site last updated 2025-06-05
 </div>
 
       </footer>

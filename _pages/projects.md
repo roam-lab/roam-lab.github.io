@@ -9,15 +9,15 @@ author_profile: true
 
 <div class="grid__wrapper">
   {% for project in sorted_projects %}
-    <div class="card__wrapper">
-      <div class="card__image">
-        {% if project.image %}
+    <div class="card__horizontal">
+      {% if project.image %}
+        <div class="card__horizontal-image">
           <a href="{{ project.url | relative_url }}">
-            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" class="img-responsive">
+            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}">
           </a>
-        {% endif %}
-      </div>
-      <div class="card__body">
+        </div>
+      {% endif %}
+      <div class="card__horizontal-body">
         <h3><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h3>
         <p>{{ project.description }}</p>
       </div>
