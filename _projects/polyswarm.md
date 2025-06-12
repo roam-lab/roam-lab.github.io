@@ -9,7 +9,7 @@ images:
   - /images/projects/polyswarm/02.png
   - /images/projects/polyswarm/03.png
 completion: "Ongoing"
-team: [sarioglu]  # Replace with correct slugs
+team: [duru]  # Replace with correct slugs
 ---
 
 ## 🚁 Project Overview
@@ -50,18 +50,6 @@ At its core, the system supports **polynomial trajectory generation** based on c
 4. **Multi-Agent Interaction**
    - Disturbance-aware controllers based on vehicle proximity
    - Downwash effect modeled as a function of rotor thrust and vertical offset
-
----
-
-## 📽️ Simulation Video
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
-  <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-          frameborder="0"
-          allowfullscreen
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-  </iframe>
-</div>
 
 ---
 

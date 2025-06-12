@@ -1,9 +1,9 @@
 ---
-title: Buğra Berk Sarıoğul
+title: Buğra Berk Sarıoğlu
 role: undergrad
 slug: sarioglu
 layout: profile
-permalink: /team/sariogul/
+permalink: /team/sarioglu/
 
 education:
   undergrad: Mechanical Engineering

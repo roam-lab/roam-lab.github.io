@@ -21,18 +21,6 @@ It consists of a rotary base driven by a DC motor, with a rigid pendulum attache
 
 ---
 
-## 🎥 Demo Video
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
-  <iframe src="https://www.youtube.com/embed/W-fFHeTX70Q" 
-          frameborder="0" 
-          allowfullscreen 
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-  </iframe>
-</div>
-
----
-
 ## ✨ Key Features
 
 - **Open-loop and closed-loop control experiments**

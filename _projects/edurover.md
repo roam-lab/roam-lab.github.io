@@ -21,18 +21,6 @@ The platform is fully **3D-printable** and uses easily accessible components suc
 
 ---
 
-## 🎥 Demo Video
-
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
-  <iframe src="https://www.youtube.com/embed/W-fFHeTX70Q" 
-          frameborder="0" 
-          allowfullscreen 
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-  </iframe>
-</div>
-
----
-
 ## ✨ Features
 
 - **Mecanum-wheel design** for full 360° motion
