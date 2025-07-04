@@ -5,7 +5,7 @@ category: books
 permalink: /publication/ozaslan2025_imu
 excerpt: 'This work provides a comprehensive overview of inertial sensors used in robotics, detailing the structure, calibration, and mathematical modeling of accelerometers, gyroscopes, and magnetometers for state estimation.'
 date: 2025-01-01
-venue: 'Published by Eğitim Yayınevi, 2025'
+venue: 'Eğitim Yayınevi'
 paperurl: '/files/ozaslan2025_imu.pdf'
 citation: '<i><b>Özaslan, T.</b> (2025). "Inertial Measurement Units: Modeling and Calibration." Eğitim Yayınevi.</i>'
 slug: ozaslan2025_imu
