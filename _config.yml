@@ -240,6 +240,9 @@ collections:
   projects:
     output: true
     permalink: /:collection/:path/
+  apps:
+    output: true
+    permalink: /:collection/:path/
 
 
 # These settings control how pages and collections are included in the site
@@ -313,6 +316,14 @@ defaults:
       layout: project
       author_profile: true
       share: true
+  # _apps
+  - scope:
+      path: ""
+      type: apps
+    values:
+      layout: app
+      author_profile: false
+      share: false
 
 
 

@@ -22,6 +22,9 @@ main:
 
   - title: "Teaching"
     url: /teaching/    
+
+  - title: "Apps"
+    url: /apps/
     
   # - title: "Portfolio"
   #   url: /portfolio/

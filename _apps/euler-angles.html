@@ -1,0 +1,436 @@
+---
+layout: app
+title: "3D Euler Angles, Rotation Sequences & Gimbal Lock Visualizer"
+permalink: /apps/euler-angles/
+category: "3D Kinematics & Rotations"
+order: 1
+icon: "fa-solid fa-compass-drafting"
+excerpt: "Interactive 3D laboratory for exploring all 6 Proper Euler and 6 Tait-Bryan (Roll-Pitch-Yaw) rotation sequences, intrinsic and extrinsic equivalence, symbolic & numerical 3×3 rotation matrices, dual atan2 solutions, and Gimbal Lock singularities."
+features:
+  - "All 6 Proper Euler (ZYZ, ZXZ, YXY, YZY, XZX, XYX) & 6 Tait-Bryan (ZYX, XYZ, YXZ, ZXY, YZX, XZY) sequences"
+  - "Wide 3D concentric gimbal visualizer with Drone, Box, and Jet Fighter models and step-by-step rotation playback"
+  - "Complete single-page view of 3×3 symbolic/numerical matrices, dual atan2 solutions, and Gimbal Lock null-space analysis"
+tags:
+  - "SO(3)"
+  - "Euler Angles"
+  - "Roll-Pitch-Yaw"
+  - "Gimbal Lock"
+  - "Quaternions"
+use_threejs: true
+app_css:
+  - "/assets/apps/euler-angles/euler-app.css"
+app_modules:
+  - "/assets/apps/euler-angles/euler-app.js"
+---
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
+<div class="euler-app">
+
+  <!-- SECTION 1: ANGLE SEQUENCE SELECTION & INTRINSIC/EXTRINSIC EQUIVALENCE -->
+  <section class="ea-section-card">
+    <div class="ea-section-header">
+      <h2 class="ea-section-title">
+        <i class="fa-solid fa-layer-group"></i> 1. Select Rotation Sequence (6 Proper Euler + 6 Tait-Bryan)
+      </h2>
+      <span style="font-size:0.82rem;color:var(--ea-text-muted);">
+        Angle triplet: <strong>(ϕ, θ, ψ)</strong> &nbsp;|&nbsp; Matrix product: <strong id="ea-header-mat-eq">R = R_z(ϕ) · R_y(θ) · R_z(ψ)</strong>
+      </span>
+    </div>
+
+    <div class="ea-sec1-split">
+      <!-- Left Column: Stacked Top (Proper Euler) & Bottom (Tait-Bryan) -->
+      <div class="ea-sec1-left">
+        <div class="ea-seq-box">
+          <div class="ea-seq-box-header">
+            <span class="ea-seq-box-title">Proper (Classic) Euler Sequences (6)</span>
+            <span class="ea-seq-box-sub">1st &amp; 3rd axes identical (a₁ = a₃); singular at θ = 0°, 180°</span>
+          </div>
+          <div class="ea-seq-btn-row">
+            <button type="button" class="ea-seq-btn active" data-seq="ZYZ">Z-Y-Z</button>
+            <button type="button" class="ea-seq-btn" data-seq="ZXZ">Z-X-Z</button>
+            <button type="button" class="ea-seq-btn" data-seq="YXY">Y-X-Y</button>
+            <button type="button" class="ea-seq-btn" data-seq="YZY">Y-Z-Y</button>
+            <button type="button" class="ea-seq-btn" data-seq="XZX">X-Z-X</button>
+            <button type="button" class="ea-seq-btn" data-seq="XYX">X-Y-X</button>
+          </div>
+        </div>
+
+        <div class="ea-seq-box">
+          <div class="ea-seq-box-header">
+            <span class="ea-seq-box-title">Tait-Bryan (Roll-Pitch-Yaw / Cardan) Sequences (6)</span>
+            <span class="ea-seq-box-sub">All 3 axes distinct (a₁ ≠ a₂ ≠ a₃); singular at θ = ±90°</span>
+          </div>
+          <div class="ea-seq-btn-row">
+            <button type="button" class="ea-seq-btn" data-seq="ZYX">Z-Y-X</button>
+            <button type="button" class="ea-seq-btn" data-seq="XYZ">X-Y-Z</button>
+            <button type="button" class="ea-seq-btn" data-seq="YXZ">Y-X-Z</button>
+            <button type="button" class="ea-seq-btn" data-seq="ZXY">Z-X-Y</button>
+            <button type="button" class="ea-seq-btn" data-seq="YZX">Y-Z-X</button>
+            <button type="button" class="ea-seq-btn" data-seq="XZY">X-Z-Y</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Intrinsic <-> Extrinsic Dual Equivalence Explanation Box -->
+      <div class="ea-equiv-banner">
+        <div class="ea-equiv-col">
+          <span class="ea-equiv-tag">Intrinsic (Current / Body-Attached Frame)</span>
+          <span class="ea-equiv-Main" id="ea-equiv-intrinsic">Z(ϕ) → Y'(θ) → Z''(ψ)</span>
+          <span class="ea-equiv-desc" id="ea-equiv-intrinsic-desc">
+            Post-multiply: 1st rotate by ϕ about ẑ, then θ about current ŷ', then ψ about current ẑ''.
+          </span>
+        </div>
+
+        <div class="ea-equiv-symbol" title="Identical Resultant Rotation Matrix R">≡</div>
+
+        <div class="ea-equiv-col">
+          <span class="ea-equiv-tag">Equivalent Extrinsic (Fixed / World Frame)</span>
+          <span class="ea-equiv-Main" id="ea-equiv-extrinsic">Fixed Z(ψ) → Y(θ) → Z(ϕ)</span>
+          <span class="ea-equiv-desc" id="ea-equiv-extrinsic-desc">
+            Reversing the rotation order and switching to the fixed frame simultaneously produces the exact same matrix R!
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: FULL-WIDTH 3D INTERACTIVE VIEWER + ROTARY KNOB CONTROLS -->
+  <section class="ea-viewer-card">
+    <div class="ea-viewer-toolbar">
+      <div class="ea-toolbar-group">
+        <span class="ea-group-label">Center Object:</span>
+        <button type="button" class="ea-pill-btn active" data-model-type="drone">Drone</button>
+        <button type="button" class="ea-pill-btn" data-model-type="box">Box</button>
+        <button type="button" class="ea-pill-btn" data-model-type="jet">Jet Fighter</button>
+      </div>
+
+      <div class="ea-toolbar-group">
+        <span class="ea-group-label">Mouse Mode:</span>
+        <button type="button" class="ea-pill-btn active" data-mouse-mode="smart" title="Drag 3D Object to rotate orientation, drag Gimbal Rings for single Euler angles, or drag background to orbit camera">Smart (Object + Gimbals + Camera)</button>
+        <button type="button" class="ea-pill-btn" data-mouse-mode="object" title="Drag anywhere on the canvas to rotate the 3D object and solve Euler angles (ϕ, θ, ψ)">Rotate Object (ϕ, θ, ψ)</button>
+        <button type="button" class="ea-pill-btn" data-mouse-mode="camera" title="Drag anywhere on the canvas to orbit the 3D camera">Orbit Camera</button>
+      </div>
+    </div>
+
+    <!-- Wide 3D Canvas with Onshape/SolidWorks ViewCube & Right-Side Display Dock -->
+    <div class="ea-canvas-wrap" id="ea-canvas-wrap">
+      <div class="ea-hud-top-left">
+        <div class="ea-hud-pill" id="ea-hud-eq">Z-Y-Z: R = R_z(ϕ) · R_y(θ) · R_z(ψ)</div>
+        <div id="ea-hud-status" class="ea-status-badge ea-status-badge--ok">
+          <i class="fa-solid fa-circle-check"></i> 3 DoF Full Rank
+        </div>
+      </div>
+
+      <!-- Top-Right Controls beside the 3D ViewCube: 3D Label Font -/+ and Isometric Home -->
+      <div class="ea-vc-top-bar">
+        <button type="button" id="ea-font-dec-btn" class="ea-vc-ctrl-btn" title="Decrease 3D Axis Label Font Size">
+          A&minus;
+        </button>
+        <button type="button" id="ea-font-inc-btn" class="ea-vc-ctrl-btn" title="Increase 3D Axis Label Font Size">
+          A+
+        </button>
+        <button type="button" id="ea-viewcube-home-btn" class="ea-vc-ctrl-btn" data-cam-preset="iso" title="Reset to 3D Isometric View">
+          <i class="fa-solid fa-house"></i>
+        </button>
+      </div>
+
+      <!-- Onshape / SolidWorks Style Right-Side Floating Display Dock -->
+      <div class="ea-cad-right-dock" role="toolbar" aria-label="3D Display & Projection Controls">
+        <button type="button" class="ea-cad-dock-btn active" id="ea-proj-mode-btn" title="Switch between Orthographic (default) and Perspective Projection">
+          <i class="fa-solid fa-vector-square"></i>
+          <span id="ea-proj-mode-label">Ortho</span>
+        </button>
+        <div class="ea-cad-dock-sep"></div>
+        <button type="button" class="ea-cad-dock-btn active" data-layer-btn="gimbals" title="Toggle 3D Concentric Gimbals">
+          <i class="fa-solid fa-ring"></i>
+          <span>Gimbals</span>
+        </button>
+        <button type="button" class="ea-cad-dock-btn" id="ea-gimbal-style-btn" title="Switch Gimbal Representation: Tubular Rings vs Saturn-Style Planar Rings">
+          <i class="fa-solid fa-circle-dot"></i>
+          <span id="ea-gimbal-style-label">Style: Ring</span>
+        </button>
+        <div class="ea-cad-dock-sep"></div>
+        <button type="button" class="ea-cad-dock-btn active" data-layer-btn="worldFrame" title="Toggle Fixed Reference Frame F₀ {x̂, ŷ, ẑ}">
+          <i class="fa-solid fa-arrows-up-down-left-right"></i>
+          <span>Frame F₀</span>
+        </button>
+        <button type="button" class="ea-cad-dock-btn" data-layer-btn="interFrames" title="Toggle Intermediate Frames F₁' and F₂''">
+          <i class="fa-solid fa-diagram-next"></i>
+          <span>F₁', F₂''</span>
+        </button>
+        <button type="button" class="ea-cad-dock-btn active" data-layer-btn="bodyFrame" title="Toggle Body-Attached Frame F₃ {x̂''', ŷ''', ẑ'''}">
+          <i class="fa-solid fa-cube"></i>
+          <span>Frame F₃</span>
+        </button>
+        <button type="button" class="ea-cad-dock-btn active" data-layer-btn="activeAxes" title="Toggle Active Gimbal Rotation Axes {ê₁, ê₂', ê₃''}">
+          <i class="fa-solid fa-compass"></i>
+          <span>Axes êᵢ</span>
+        </button>
+        <button type="button" class="ea-cad-dock-btn active" data-layer-btn="sphereArcs" title="Toggle Unit Sphere & Angular Sweep Arcs">
+          <i class="fa-solid fa-globe"></i>
+          <span>Arcs</span>
+        </button>
+      </div>
+
+      <div id="euler-canvas-container"></div>
+
+      <div class="ea-hud-bottom-left" id="ea-hud-note">
+        Drag Object to rotate 3D orientation (solves ϕ, θ, ψ) · Drag Gimbal Rings for single angles · Click ViewCube for standard views
+      </div>
+
+      <!-- Subtle Slick Bottom Resize Handle for 3D Viewport Height -->
+      <div class="ea-viewport-resizer" id="ea-viewport-resizer" title="Drag up or down to resize 3D viewport height">
+        <span class="ea-resizer-grip"></span>
+        <button type="button" class="ea-resizer-toggle" id="ea-viewport-expand-btn" title="Toggle Tall / Standard 3D Viewport Height">
+          <i class="fa-solid fa-up-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4-Column Compact Strip: 3 Rotary Knobs {ϕ, θ, ψ} + 4th Simulation Panel on the Right -->
+    <div class="ea-angles-strip">
+      <div class="ea-angles-4col">
+        <!-- Angle 1: ϕ -->
+        <div class="ea-angle-card" id="ea-angle-card-0">
+          <div class="ea-angle-header">
+            <div class="ea-angle-label">
+              <span>1st Angle: ϕ</span>
+              <span id="ea-axis-tag-0" class="ea-axis-tag ea-axis-tag--z">about ẑ</span>
+            </div>
+          </div>
+          <div class="ea-knob-wrap">
+            <svg class="ea-knob-svg" id="ea-knob-svg-0" data-knob-idx="0" viewBox="0 0 210 210">
+              <circle class="ea-knob-bezel" cx="105" cy="105" r="98" />
+              <g class="ea-knob-ticks" id="ea-knob-ticks-0"></g>
+              <g class="ea-knob-snaps-ring" id="ea-knob-snaps-0"></g>
+              <circle class="ea-knob-track" cx="105" cy="105" r="56" />
+              <path class="ea-knob-arc" id="ea-knob-arc-0" d="" />
+              <circle class="ea-knob-cap" cx="105" cy="105" r="43" />
+              <g id="ea-knob-rotor-0" transform="rotate(40 105 105)">
+                <line class="ea-knob-pointer" id="ea-knob-line-0" x1="105" y1="84" x2="105" y2="64" />
+                <circle class="ea-knob-dot" id="ea-knob-dot-0" cx="105" cy="64" r="4.5" />
+              </g>
+              <text class="ea-knob-readout-svg" id="ea-knob-text-0" x="105" y="110">+40.0°</text>
+            </svg>
+          </div>
+          <div class="ea-angle-inputs-bar">
+            <div class="ea-angle-input-box">
+              <input type="number" id="ea-num-0" class="ea-num-input" min="-180" max="180" step="0.5" value="40.0">
+              <span class="ea-num-unit">°</span>
+            </div>
+            <span id="ea-rad-0" class="ea-rad-readout">0.70 rad</span>
+          </div>
+        </div>
+
+        <!-- Angle 2: θ (Middle Angle) -->
+        <div class="ea-angle-card" id="ea-angle-card-1">
+          <div class="ea-angle-header">
+            <div class="ea-angle-label">
+              <span>2nd Angle: θ</span>
+              <span id="ea-axis-tag-1" class="ea-axis-tag ea-axis-tag--y">about ŷ'</span>
+            </div>
+          </div>
+          <div class="ea-knob-wrap">
+            <svg class="ea-knob-svg" id="ea-knob-svg-1" data-knob-idx="1" viewBox="0 0 210 210">
+              <circle class="ea-knob-bezel" cx="105" cy="105" r="98" />
+              <g class="ea-knob-ticks" id="ea-knob-ticks-1"></g>
+              <g class="ea-knob-snaps-ring" id="ea-knob-snaps-1"></g>
+              <circle class="ea-knob-track" cx="105" cy="105" r="56" />
+              <path class="ea-knob-arc" id="ea-knob-arc-1" d="" />
+              <circle class="ea-knob-cap" cx="105" cy="105" r="43" />
+              <g id="ea-knob-rotor-1" transform="rotate(55 105 105)">
+                <line class="ea-knob-pointer" id="ea-knob-line-1" x1="105" y1="84" x2="105" y2="64" />
+                <circle class="ea-knob-dot" id="ea-knob-dot-1" cx="105" cy="64" r="4.5" />
+              </g>
+              <text class="ea-knob-readout-svg" id="ea-knob-text-1" x="105" y="110">+55.0°</text>
+            </svg>
+          </div>
+          <div class="ea-angle-inputs-bar">
+            <div class="ea-angle-input-box">
+              <input type="number" id="ea-num-1" class="ea-num-input" min="-180" max="180" step="0.5" value="55.0">
+              <span class="ea-num-unit">°</span>
+            </div>
+            <span id="ea-rad-1" class="ea-rad-readout">0.96 rad</span>
+          </div>
+        </div>
+
+        <!-- Angle 3: ψ -->
+        <div class="ea-angle-card" id="ea-angle-card-2">
+          <div class="ea-angle-header">
+            <div class="ea-angle-label">
+              <span>3rd Angle: ψ</span>
+              <span id="ea-axis-tag-2" class="ea-axis-tag ea-axis-tag--z">about ẑ''</span>
+            </div>
+          </div>
+          <div class="ea-knob-wrap">
+            <svg class="ea-knob-svg" id="ea-knob-svg-2" data-knob-idx="2" viewBox="0 0 210 210">
+              <circle class="ea-knob-bezel" cx="105" cy="105" r="98" />
+              <g class="ea-knob-ticks" id="ea-knob-ticks-2"></g>
+              <g class="ea-knob-snaps-ring" id="ea-knob-snaps-2"></g>
+              <circle class="ea-knob-track" cx="105" cy="105" r="56" />
+              <path class="ea-knob-arc" id="ea-knob-arc-2" d="" />
+              <circle class="ea-knob-cap" cx="105" cy="105" r="43" />
+              <g id="ea-knob-rotor-2" transform="rotate(30 105 105)">
+                <line class="ea-knob-pointer" id="ea-knob-line-2" x1="105" y1="84" x2="105" y2="64" />
+                <circle class="ea-knob-dot" id="ea-knob-dot-2" cx="105" cy="64" r="4.5" />
+              </g>
+              <text class="ea-knob-readout-svg" id="ea-knob-text-2" x="105" y="110">+30.0°</text>
+            </svg>
+          </div>
+          <div class="ea-angle-inputs-bar">
+            <div class="ea-angle-input-box">
+              <input type="number" id="ea-num-2" class="ea-num-input" min="-180" max="180" step="0.5" value="30.0">
+              <span class="ea-num-unit">°</span>
+            </div>
+            <span id="ea-rad-2" class="ea-rad-readout">0.52 rad</span>
+          </div>
+        </div>
+
+        <!-- 4th Panel on the Right: Step-by-Step Rotation Simulation & Presets -->
+        <div class="ea-angle-card ea-sim-card" id="ea-sim-card">
+          <div class="ea-angle-header">
+            <div class="ea-angle-label">
+              <i class="fa-solid fa-play-circle" style="color:var(--ea-accent);"></i>
+              <span>Step Simulation</span>
+            </div>
+            <div class="ea-sim-preset-btns">
+              <button type="button" id="ea-reset-angles-btn" class="ea-pill-btn ea-pill-btn--xs" title="Reset all angles to (0°, 0°, 0°)">Zero</button>
+              <button type="button" id="ea-random-angles-btn" class="ea-pill-btn ea-pill-btn--xs" title="Set random Euler angles">Random</button>
+            </div>
+          </div>
+
+          <div class="ea-sim-body">
+            <div class="ea-sim-row">
+              <button type="button" id="ea-play-steps-btn" class="ea-play-btn" style="width:100%;">
+                <i class="fa-solid fa-play"></i> Animate Steps
+              </button>
+            </div>
+
+            <div class="ea-sim-mode-group">
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs active" data-step-mode="intrinsic" id="ea-step-mode-intrinsic">
+                Intrinsic: Z(ϕ)→Y'(θ)→Z''(ψ)
+              </button>
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs" data-step-mode="extrinsic" id="ea-step-mode-extrinsic">
+                Extrinsic: Z(ψ)→Y(θ)→Z(ϕ)
+              </button>
+            </div>
+
+            <div class="ea-step-btns">
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs" data-step-jump="0">0: F₀</button>
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs" data-step-jump="1">1: F₁'</button>
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs" data-step-jump="2">2: F₂''</button>
+              <button type="button" class="ea-pill-btn ea-pill-btn--xs" data-step-jump="3">3: F₃'''</button>
+            </div>
+
+            <div class="ea-scrubber-slider-row">
+              <span style="font-size:0.72rem;font-weight:700;color:var(--ea-text-muted);">Step:</span>
+              <input type="range" id="ea-step-slider" min="0" max="3" step="0.01" value="3">
+            </div>
+
+            <div class="ea-scrubber-caption" id="ea-step-caption">
+              Step 3.00 (Complete): Full Composite Orientation F₃
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ELEMENTARY & COMPOSITE 3x3 ROTATION MATRICES (ALWAYS VISIBLE) -->
+  <section class="ea-section-card">
+    <div class="ea-section-header">
+      <h2 class="ea-section-title">
+        <i class="fa-solid fa-table-cells"></i> 2. Elementary &amp; Composite 3×3 Rotation Matrices
+      </h2>
+      <div style="display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+        <span id="ea-so3-verification" style="font-size:0.82rem;"></span>
+      </div>
+    </div>
+
+    <div style="font-size:0.84rem;font-weight:700;margin-bottom:0.45rem;">
+      Elementary Rotation Matrices Product:
+    </div>
+    <div id="ea-elem-matrices-container" class="ea-latex-panel"></div>
+
+    <div style="font-size:0.84rem;font-weight:700;margin-bottom:0.45rem;">
+      Resultant Composite Rotation Matrix <code>R = [rᵢⱼ] ∈ SO(3)</code> (★ marks the Pivot Entry governing θ and Gimbal Lock):
+    </div>
+    <div id="ea-composite-matrix-grid" class="ea-latex-panel ea-latex-panel--2col"></div>
+  </section>
+
+  <!-- SECTION 4: GIMBAL LOCK & SINGULARITY ANALYSIS (ALWAYS VISIBLE) -->
+  <section class="ea-section-card">
+    <div class="ea-section-header">
+      <h2 class="ea-section-title">
+        <i class="fa-solid fa-lock"></i> 3. Gimbal Lock &amp; Singularity Analysis
+      </h2>
+      <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
+        <button type="button" id="ea-trigger-lock-1" class="ea-pill-btn">⚡ Jump to Gimbal Lock (θ = 0°)</button>
+        <button type="button" id="ea-trigger-lock-2" class="ea-pill-btn">⚡ Jump to Gimbal Lock (θ = 180°)</button>
+      </div>
+    </div>
+
+    <div class="ea-two-col-grid">
+      <div class="ea-subbox">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:0.88rem;">
+          <span>Degrees of Freedom &amp; Gimbal Alignment:</span>
+          <span id="ea-dof-val" style="color:var(--ea-accent-text);">|sin(θ)| = 0.819 (81.9%)</span>
+        </div>
+        <div class="ea-dof-bar-bg">
+          <div id="ea-dof-bar-fill" class="ea-dof-bar-fill" style="width:81.9%;background:#22c55e;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.82rem;color:var(--ea-text-muted);">
+          <span>Angle Between 1st Axis (ê₁) &amp; 3rd Axis (ê₃''):</span>
+          <strong id="ea-collinear-angle" style="color:var(--ea-text);">∠(ê₁, ê₃'') = 55.0°</strong>
+        </div>
+      </div>
+
+      <div class="ea-subbox">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong style="font-size:0.86rem;">Interactive Null-Space Explorer (Coupled ϕ &amp; ψ):</strong>
+          <button type="button" id="ea-spin-nullspace-btn" class="ea-pill-btn">
+            <i class="fa-solid fa-rotate"></i> Spin Null-Space
+          </button>
+        </div>
+        <div style="font-size:0.8rem;color:var(--ea-text-muted);line-height:1.45;">
+          At Gimbal Lock, Axis 1 (<code>ê₁</code>) and Axis 3 (<code>ê₃''</code>) become collinear (<strong id="ea-nullspace-formula">ϕ + ψ = 70.00°</strong>).
+          Drag the slider below or click <strong>Spin Null-Space</strong>: the outer and inner gimbal rings rotate continuously in 3D while the center object and matrix <code>R</code> stay 100% stationary!
+        </div>
+        <input type="range" id="ea-nullspace-slider" min="-180" max="180" step="1" value="0" style="width:100%;accent-color:#f59e0b;">
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: SOLVING FOR EULER ANGLES (CLOSED-FORM ATAN2 & DUAL SOLUTIONS) -->
+  <section class="ea-section-card">
+    <div class="ea-section-header">
+      <h2 class="ea-section-title">
+        <i class="fa-solid fa-code-branch"></i> 4. Solving for Euler Angles from R (Dual Solutions via atan2)
+      </h2>
+      <button type="button" id="ea-swap-solution-btn" class="ea-pill-btn">
+        ⇄ Swap Sliders to Alternate Solution Triplet
+      </button>
+    </div>
+
+    <p style="font-size:0.84rem;color:var(--ea-text-muted);margin:0 0 0.85rem 0;">
+      Every non-singular 3D orientation <code>R ∈ SO(3)</code> is represented by <strong>two distinct Euler angle triplets</strong>. Clicking <em>Swap Sliders to Alternate Solution Triplet</em> flips the gimbal rings to the second solution while keeping the 3D object and matrix <code>R</code> identical.
+    </p>
+
+    <div class="ea-two-col-grid" style="margin-bottom:0.9rem;">
+      <div id="ea-sol1-box" class="ea-subbox active-branch">
+        <div style="font-weight:700;font-size:0.9rem;" id="ea-sol1-title">Solution Set 1 (Primary Branch)</div>
+        <div class="ea-latex-aligned-box" id="ea-sol1-formulas"></div>
+      </div>
+
+      <div id="ea-sol2-box" class="ea-subbox">
+        <div style="font-weight:700;font-size:0.9rem;" id="ea-sol2-title">Solution Set 2 (Alternate Branch)</div>
+        <div class="ea-latex-aligned-box" id="ea-sol2-formulas"></div>
+      </div>
+    </div>
+
+    <div class="ea-subbox" id="ea-singular-formulas-box"></div>
+  </section>
+
+</div>

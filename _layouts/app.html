@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+{% if page.app_css %}
+  {% for css_file in page.app_css %}
+    <link rel="stylesheet" href="{{ css_file | relative_url }}">
+  {% endfor %}
+{% endif %}
+
+<div id="main" role="main" class="app-main-container">
+  <article class="app-page" itemscope itemtype="http://schema.org/SoftwareApplication">
+    {% if page.title %}<meta itemprop="name" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+
+    <header class="app-page__header">
+      <div class="app-page__header-top">
+        <div class="app-page__breadcrumbs">
+          <a href="{{ '/apps/' | relative_url }}" class="app-page__back-link">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Interactive Apps
+          </a>
+          {% if page.category %}
+            <span class="app-badge app-badge--course">{{ page.category }}</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="app-page__title-row">
+        <h1 class="app-page__title" itemprop="headline">{{ page.title }}</h1>
+        {% if page.excerpt %}
+          <p class="app-page__subtitle">{{ page.excerpt }}</p>
+        {% endif %}
+      </div>
+    </header>
+
+    <section class="app-page__content" itemprop="text">
+      {{ content }}
+    </section>
+  </article>
+</div>
+
+{% if page.app_js %}
+  {% for js_file in page.app_js %}
+    <script src="{{ js_file | relative_url }}"></script>
+  {% endfor %}
+{% endif %}
+
+{% if page.app_modules %}
+  {% for mod_file in page.app_modules %}
+    <script type="module" src="{{ mod_file | relative_url }}"></script>
+  {% endfor %}
+{% endif %}

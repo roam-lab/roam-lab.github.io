@@ -1,0 +1,990 @@
+/* ==========================================================================
+   EULER ANGLES & GIMBAL LOCK INTERACTIVE LAB - STYLESHEET
+   Wide, Tab-less Vertical Layout with High-Luminance Color Palette
+   ========================================================================== */
+
+:root {
+  --ea-panel-bg: #ffffff;
+  --ea-panel-alt: #f8fafc;
+  --ea-panel-soft: #f1f5f9;
+  --ea-border: #e2e8f0;
+  --ea-border-strong: #cbd5e1;
+  --ea-text: #0f172a;
+  --ea-text-muted: #475569;
+  --ea-accent: #0ea5e9;
+  --ea-accent-soft: #e0f2fe;
+  --ea-accent-text: #0369a1;
+  --ea-red: #ff4d4f;
+  --ea-red-soft: #ffe4e6;
+  --ea-red-text: #be123c;
+  --ea-green: #22c55e;
+  --ea-green-soft: #dcfce7;
+  --ea-green-text: #15803d;
+  --ea-blue: #3b82f6;
+  --ea-blue-soft: #dbeafe;
+  --ea-blue-text: #1d4ed8;
+  --ea-amber: #f59e0b;
+  --ea-amber-soft: #fef3c7;
+  --ea-amber-text: #b45309;
+  --ea-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+}
+
+html[data-theme="dark"] {
+  --ea-panel-bg: #1e293b;
+  --ea-panel-alt: #0f172a;
+  --ea-panel-soft: #334155;
+  --ea-border: #334155;
+  --ea-border-strong: #475569;
+  --ea-text: #f8fafc;
+  --ea-text-muted: #cbd5e1;
+  --ea-accent: #38bdf8;
+  --ea-accent-soft: rgba(56, 189, 248, 0.18);
+  --ea-accent-text: #7dd3fc;
+  --ea-red: #ff6b6b;
+  --ea-red-soft: rgba(255, 107, 107, 0.22);
+  --ea-red-text: #fecdd3;
+  --ea-green: #4ade80;
+  --ea-green-soft: rgba(74, 222, 128, 0.22);
+  --ea-green-text: #bbf7d0;
+  --ea-blue: #60a5fa;
+  --ea-blue-soft: rgba(96, 165, 250, 0.22);
+  --ea-blue-text: #bfdbfe;
+  --ea-amber: #fbbf24;
+  --ea-amber-soft: rgba(251, 191, 36, 0.2);
+  --ea-amber-text: #fde68a;
+  --ea-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.euler-app {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ea-text);
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  width: 100%;
+}
+
+/* Section Card Base */
+.ea-section-card {
+  background: var(--ea-panel-bg);
+  border: 1px solid var(--ea-border);
+  border-radius: 12px;
+  padding: 1.15rem 1.35rem;
+  box-shadow: var(--ea-shadow);
+}
+
+.ea-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ea-border);
+}
+
+.ea-section-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  font-size: 1.12rem !important;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ea-text);
+}
+
+.ea-section-title i {
+  color: var(--ea-accent);
+}
+
+/* 1. Sequence Selection Panel (Left: Top/Bottom Sequences | Right: Blue Equivalence Box) */
+.ea-sec1-split {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 0.95rem;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .ea-sec1-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ea-sec1-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ea-seq-box {
+  background: var(--ea-panel-alt);
+  border: 1px solid var(--ea-border);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+}
+
+.ea-seq-box-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.ea-seq-box-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ea-text);
+}
+
+.ea-seq-box-sub {
+  font-size: 0.72rem;
+  color: var(--ea-text-muted);
+}
+
+.ea-seq-btn-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.38rem;
+}
+
+@media (max-width: 560px) {
+  .ea-seq-btn-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ea-seq-btn {
+  padding: 0.38rem 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border-radius: 7px;
+  border: 1px solid var(--ea-border-strong);
+  background: var(--ea-panel-bg);
+  color: var(--ea-text);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.ea-seq-btn:hover {
+  border-color: var(--ea-accent);
+  color: var(--ea-accent-text);
+  background: var(--ea-accent-soft);
+}
+
+.ea-seq-btn.active {
+  background: var(--ea-accent);
+  color: #ffffff;
+  border-color: var(--ea-accent);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+}
+
+/* Intrinsic <-> Extrinsic Dual Equivalence Box on the Right */
+.ea-equiv-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+  background: var(--ea-accent-soft);
+  border: 1px solid var(--ea-accent);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+}
+
+.ea-equiv-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+}
+
+.ea-equiv-tag {
+  font-size: 0.71rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ea-accent-text);
+}
+
+.ea-equiv-Main {
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--ea-text);
+}
+
+.ea-equiv-desc {
+  font-size: 0.76rem;
+  color: var(--ea-text-muted);
+  line-height: 1.38;
+}
+
+.ea-equiv-symbol {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ea-accent-text);
+  text-align: center;
+  line-height: 1;
+}
+
+/* 2. Full-Width 3D Viewer Card */
+.ea-viewer-card {
+  background: var(--ea-panel-bg);
+  border: 1px solid var(--ea-border);
+  border-radius: 12px;
+  box-shadow: var(--ea-shadow);
+  overflow: hidden;
+}
+
+.ea-viewer-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1rem;
+  background: var(--ea-panel-alt);
+  border-bottom: 1px solid var(--ea-border);
+}
+
+.ea-toolbar-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ea-group-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ea-text-muted);
+  margin-right: 0.2rem;
+}
+
+.ea-pill-btn {
+  padding: 0.3rem 0.68rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--ea-border-strong);
+  background: var(--ea-panel-bg);
+  color: var(--ea-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ea-pill-btn:hover {
+  border-color: var(--ea-accent);
+  color: var(--ea-accent-text);
+}
+
+.ea-pill-btn.active {
+  background: var(--ea-accent);
+  border-color: var(--ea-accent);
+  color: #ffffff;
+}
+
+.ea-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  min-height: 380px;
+  max-height: 1020px;
+  background: var(--ea-panel-alt);
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .ea-canvas-wrap {
+    height: 460px;
+  }
+}
+
+#euler-canvas-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Bright HUD Overlays inside 3D Viewport */
+.ea-hud-top-left {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+}
+
+.ea-hud-pill {
+  background: var(--ea-panel-bg);
+  color: var(--ea-text);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px solid var(--ea-border-strong);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Top-Right Controls beside 3D ViewCube (Font A-/A+ and Home) */
+.ea-vc-top-bar {
+  position: absolute;
+  top: 0.75rem;
+  right: 202px;
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.ea-vc-ctrl-btn {
+  height: 30px;
+  min-width: 32px;
+  padding: 0 0.45rem;
+  border-radius: 7px;
+  border: 1px solid var(--ea-border-strong);
+  background: var(--ea-panel-bg);
+  color: var(--ea-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease;
+  opacity: 0.92;
+}
+
+.ea-vc-ctrl-btn:hover {
+  opacity: 1;
+  color: var(--ea-accent-text);
+  border-color: var(--ea-accent);
+  background: var(--ea-accent-soft);
+}
+
+/* Onshape / SolidWorks Style Right-Side Floating Display Dock */
+.ea-cad-right-dock {
+  position: absolute;
+  top: 202px;
+  right: 0.75rem;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.38rem;
+  border-radius: 10px;
+  border: 1px solid var(--ea-border-strong);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+}
+
+html[data-theme="dark"] .ea-cad-right-dock {
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.ea-cad-dock-sep {
+  height: 1px;
+  background: var(--ea-border-strong);
+  margin: 0.18rem 0.25rem;
+  opacity: 0.7;
+}
+
+.ea-cad-dock-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.34rem 0.58rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ea-text-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ea-cad-dock-btn i {
+  width: 15px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.ea-cad-dock-btn:hover {
+  background: var(--ea-panel-soft);
+  color: var(--ea-text);
+}
+
+.ea-cad-dock-btn.active {
+  background: var(--ea-accent-soft);
+  color: var(--ea-accent-text);
+  border-color: var(--ea-accent);
+  font-weight: 700;
+}
+
+.ea-cad-dock-btn.active i {
+  color: var(--ea-accent);
+}
+
+.ea-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.36rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ea-status-badge--ok {
+  background: var(--ea-green-soft);
+  color: var(--ea-green-text);
+  border-color: var(--ea-green);
+}
+
+.ea-status-badge--warn {
+  background: var(--ea-amber-soft);
+  color: var(--ea-amber-text);
+  border-color: var(--ea-amber);
+}
+
+.ea-status-badge--lock {
+  background: var(--ea-red-soft);
+  color: var(--ea-red-text);
+  border-color: var(--ea-red);
+  animation: ea-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes ea-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.ea-hud-bottom-left {
+  position: absolute;
+  bottom: 1.05rem;
+  left: 0.85rem;
+  z-index: 10;
+  pointer-events: none;
+  font-size: 0.75rem;
+  color: var(--ea-text-muted);
+  background: var(--ea-panel-bg);
+  padding: 0.24rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid var(--ea-border);
+  opacity: 0.92;
+}
+
+/* Slick, Subtle Bottom Viewport Resize Handle */
+.ea-viewport-resizer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 13px;
+  z-index: 14;
+  cursor: ns-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, transparent, rgba(148, 163, 184, 0.14));
+  transition: background 0.15s ease;
+}
+
+.ea-viewport-resizer:hover,
+.ea-viewport-resizer.dragging {
+  background: rgba(14, 165, 233, 0.16);
+}
+
+.ea-resizer-grip {
+  width: 46px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ea-border-strong);
+  transition: all 0.15s ease;
+}
+
+.ea-viewport-resizer:hover .ea-resizer-grip,
+.ea-viewport-resizer.dragging .ea-resizer-grip {
+  width: 68px;
+  background: var(--ea-accent);
+}
+
+.ea-resizer-toggle {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 3px;
+  width: 24px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--ea-border);
+  background: var(--ea-panel-bg);
+  color: var(--ea-text-muted);
+  font-size: 0.68rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  transition: all 0.15s ease;
+}
+
+.ea-resizer-toggle:hover {
+  opacity: 1;
+  border-color: var(--ea-accent);
+  color: var(--ea-accent-text);
+}
+
+/* 4-Column Compact Rotary Knobs + Simulation Strip directly under the 3D Viewer */
+.ea-angles-strip {
+  padding: 0.75rem 0.9rem;
+  background: var(--ea-panel-bg);
+  border-top: 1px solid var(--ea-border);
+}
+
+.ea-angles-4col {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 1.15fr;
+  gap: 0.65rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1120px) {
+  .ea-angles-4col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ea-angles-4col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ea-angle-card {
+  padding: 0.65rem 0.7rem;
+  border-radius: 10px;
+  background: var(--ea-panel-alt);
+  border: 1px solid var(--ea-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3rem;
+}
+
+.ea-angle-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ea-knob-wrap {
+  flex-shrink: 0;
+  width: 162px;
+  height: 162px;
+  margin: 0 auto;
+}
+
+.ea-knob-svg {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.ea-knob-svg:active {
+  cursor: grabbing;
+}
+
+.ea-knob-bezel {
+  fill: var(--ea-panel-bg);
+  stroke: var(--ea-border);
+  stroke-width: 1.5;
+}
+
+.ea-knob-track {
+  fill: none;
+  stroke: var(--ea-border-strong);
+  stroke-width: 6.5;
+  opacity: 0.5;
+}
+
+.ea-knob-arc {
+  fill: none;
+  stroke: var(--ea-accent);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.ea-knob-cap {
+  fill: var(--ea-panel-alt);
+  stroke: var(--ea-border-strong);
+  stroke-width: 2;
+  filter: drop-shadow(0 3px 6px rgba(15, 23, 42, 0.14));
+}
+
+.ea-knob-pointer {
+  stroke: var(--ea-accent);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+}
+
+.ea-knob-dot {
+  fill: var(--ea-accent);
+}
+
+.ea-knob-readout-svg {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14.5px;
+  font-weight: 800;
+  fill: var(--ea-text);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* Integrated Clickable Perimeter Snap Nodes on the Rotary Knob */
+.ea-knob-snap-node {
+  cursor: pointer;
+}
+
+.ea-knob-snap-pill {
+  fill: transparent;
+  rx: 5px;
+  ry: 5px;
+  transition: fill 0.14s ease, stroke 0.14s ease;
+}
+
+.ea-knob-snap-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  fill: var(--ea-text-muted);
+  text-anchor: middle;
+  dominant-baseline: central;
+  transition: fill 0.14s ease, font-weight 0.14s ease;
+  user-select: none;
+}
+
+.ea-knob-snap-node:hover .ea-knob-snap-pill {
+  fill: var(--ea-accent-soft);
+  stroke: var(--ea-accent);
+  stroke-width: 1;
+}
+
+.ea-knob-snap-node:hover .ea-knob-snap-text {
+  fill: var(--ea-accent-text);
+  font-weight: 800;
+}
+
+.ea-knob-snap-node.active .ea-knob-snap-pill {
+  fill: var(--ea-accent);
+}
+
+.ea-knob-snap-node.active .ea-knob-snap-text {
+  fill: #ffffff;
+  font-weight: 800;
+}
+
+.ea-angle-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Bright, legible axis badges */
+.ea-axis-tag {
+  display: inline-block;
+  padding: 0.12rem 0.45rem;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.ea-axis-tag--x {
+  background: var(--ea-red-soft);
+  color: var(--ea-red-text);
+  border: 1px solid var(--ea-red);
+}
+
+.ea-axis-tag--y {
+  background: var(--ea-green-soft);
+  color: var(--ea-green-text);
+  border: 1px solid var(--ea-green);
+}
+
+.ea-axis-tag--z {
+  background: var(--ea-blue-soft);
+  color: var(--ea-blue-text);
+  border: 1px solid var(--ea-blue);
+}
+
+.ea-angle-inputs-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-top: 0.1rem;
+}
+
+.ea-angle-input-box {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ea-panel-bg);
+  border: 1px solid var(--ea-border-strong);
+  border-radius: 7px;
+  padding: 0.14rem 0.45rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ea-angle-input-box:focus-within {
+  border-color: var(--ea-accent);
+  box-shadow: 0 0 0 2px var(--ea-accent-soft);
+}
+
+.ea-num-input {
+  width: 82px;
+  padding: 0.14rem 0.2rem;
+  font-size: 0.86rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  text-align: right;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ea-text);
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.ea-num-input::-webkit-outer-spin-button,
+.ea-num-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ea-num-unit {
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--ea-text-muted);
+  margin-left: 0.15rem;
+  user-select: none;
+}
+
+.ea-rad-readout {
+  font-size: 0.74rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--ea-text-muted);
+  min-width: 58px;
+  text-align: left;
+}
+
+/* 4th Panel: Step-by-Step Rotation Simulation Card */
+.ea-sim-card {
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.45rem;
+}
+
+.ea-sim-preset-btns {
+  display: inline-flex;
+  gap: 0.28rem;
+}
+
+.ea-pill-btn--xs {
+  padding: 0.22rem 0.46rem;
+  font-size: 0.72rem;
+}
+
+.ea-sim-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 0.42rem;
+}
+
+.ea-sim-mode-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.28rem;
+}
+
+.ea-step-btns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.28rem;
+}
+
+.ea-play-btn {
+  padding: 0.36rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 6px;
+  border: 1px solid var(--ea-accent);
+  background: var(--ea-accent);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.ea-scrubber-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.ea-scrubber-slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--ea-accent);
+}
+
+.ea-scrubber-caption {
+  font-size: 0.72rem;
+  color: var(--ea-text);
+  font-weight: 600;
+  line-height: 1.32;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: var(--ea-panel-bg);
+  border: 1px solid var(--ea-border);
+  border-radius: 6px;
+  padding: 0.28rem 0.45rem;
+}
+
+/* Section 3: High-Quality KaTeX LaTeX Matrices Layout */
+.ea-latex-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.ea-latex-panel--2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .ea-latex-panel--2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ea-latex-eq-block {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: var(--ea-panel-alt);
+  border: 1px solid var(--ea-border);
+  overflow-x: auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ea-latex-eq-block .katex-display {
+  margin: 0.2rem 0;
+}
+
+.ea-latex-eq-block .katex {
+  font-size: 1.02rem;
+  color: var(--ea-text);
+}
+
+/* Section 4 & 5: Two-Column Info Grids */
+.ea-two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  align-items: stretch;
+}
+
+@media (max-width: 860px) {
+  .ea-two-col-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ea-subbox {
+  padding: 0.9rem 1rem;
+  border-radius: 9px;
+  background: var(--ea-panel-alt);
+  border: 1px solid var(--ea-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ea-subbox.active-branch {
+  border: 2px solid var(--ea-accent);
+  background: var(--ea-accent-soft);
+}
+
+.ea-dof-bar-bg {
+  width: 100%;
+  height: 11px;
+  background: var(--ea-panel-bg);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--ea-border-strong);
+}
+
+.ea-dof-bar-fill {
+  height: 100%;
+  transition: width 0.15s ease, background-color 0.15s ease;
+}
+
+.ea-code-line {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.83rem;
+  line-height: 1.65;
+}
+
+.ea-latex-aligned-box {
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem;
+}
+
+.ea-latex-aligned-box .katex-display {
+  margin: 0.15rem 0;
+  text-align: left;
+}
+
+.ea-latex-aligned-box .katex-display > .katex {
+  text-align: left;
+}
+
+.ea-latex-aligned-box .katex {
+  font-size: 0.96rem;
+  color: var(--ea-text);
+}

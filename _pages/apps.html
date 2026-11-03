@@ -1,0 +1,19 @@
+---
+layout: archive
+title: "Interactive Web Applications"
+permalink: /apps/
+author_profile: true
+---
+
+{% include base_path %}
+
+<p class="apps-hub-intro">
+  Interactive 3D laboratories, mathematical visualizers, and simulation tools. Select an application below to explore concepts interactively in your browser.
+</p>
+
+<div class="apps-hub-grid">
+  {% assign sorted_apps = site.apps | sort: "order" %}
+  {% for post in sorted_apps %}
+    {% include archive-single-app.html %}
+  {% endfor %}
+</div>
